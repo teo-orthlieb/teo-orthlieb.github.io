@@ -2,14 +2,39 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Teo Orthlieb</title>
-  <meta name="description" content="Teo Orthlieb">
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+	<meta charset="utf-8">
+	<title>Téo Orthlieb</title>
+	<meta name="description" content="Téo Orthlieb's web page">
+	<meta name="keywords" content="Téo Orthlieb, machine learning, video games">
+	<meta name="author" content="Téo Orthlieb">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  Hello World
-  <script src="js/scripts.js"></script>
+	<div class="tab">
+		<button class="tablinks" onclick="openTab(this, 'me')">Téo Orthlieb</button>
+		<button class="tablinks" onclick="openTab(this, 'projects')">Projects</button>
+		<button class="tablinks" onclick="openTab(this, 'extracurricular')">Extracurricular</button>
+	</div>
+
+	<div id="me" class="tabcontent">
+		<div>
+			<img src="photo.png" alt="Picture of Téo">
+		</div>
+		<div>
+			<p>I enjoy machine learning and video games</p>
+		</div>
+	</div>
+
+	<div id="projects" class="tabcontent">
+		<h3>My Projects</h3>
+	</div>
+
+	<div id="extracurricular" class="tabcontent">
+		<h3>My Hobbies</h3>
+	</div>
+
+	<script src="script.js"></script>
 </body>
-</html
+</html>
