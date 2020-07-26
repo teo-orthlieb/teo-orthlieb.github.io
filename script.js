@@ -1,11 +1,16 @@
-
 function on_load() {
-    let tab = new URLSearchParams(window.location.search).get("t");
-    openTab(tab);
+    openTab(window.location.pathname);
 }
 
 
-function openTab(button, tab) {
+function openTab(tab) {
+    let button = document.getElementById(`tab_${tab}`);
+    if(button === null) {
+        tab = "me";
+        button = document.getElementById(`tab_${tab}`);
+    }
+    window.history.replaceState({}, '', (tab === "me")? "/" : `/${tab}`);
+
     // Get all elements with class="tabcontent" and hide them
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {

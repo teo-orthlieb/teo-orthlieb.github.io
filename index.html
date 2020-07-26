@@ -5,17 +5,17 @@
 	<meta charset="utf-8">
 	<title>Téo Orthlieb</title>
 	<meta name="description" content="Téo Orthlieb's web page">
-	<meta name="keywords" content="Téo Orthlieb, machine learning, video games">
+	<meta name="keywords" content="Téo Orthlieb, machine learning, video games, UdeM">
 	<meta name="author" content="Téo Orthlieb">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	<link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onload="on_load()">
 	<div class="tab">
-		<button class="tablinks" onclick="openTab(this, 'me')">Téo Orthlieb</button>
-		<button class="tablinks" onclick="openTab(this, 'projects')">Projects</button>
-		<button class="tablinks" onclick="openTab(this, 'extracurricular')">Extracurricular</button>
+		<button class="tablinks" id="tab_me" onclick="openTab(this, 'me')">Téo Orthlieb</button>
+		<button class="tablinks" id="tab_projects" onclick="openTab(this, 'projects')">Projects</button>
+		<button class="tablinks" id="tab_extracurricular" onclick="openTab(this, 'extracurricular')">Extracurricular</button>
 	</div>
 
 	<div id="me" class="tabcontent">
