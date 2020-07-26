@@ -1,17 +1,25 @@
 function on_load() {
-    let path = window.location.pathname;
-    let button = document.getElementById(path);
+    let tab = new URLSearchParams(window.location.search).get("t");
+    let button = document.getElementById(tab);
     if(button === null) {
         button = document.getElementById("me");
     }
-    openTab(button);
+    open_tab(button);
 }
 
+function save_state(tab) {
+    let params = new URLSearchParams(window.location.search);
+    if(tab === "me") {
+        params.delete("t");
+    } else {
+        params.set("t", tab);
+    }
+    window.history.replaceState({}, '', `/?${params.toString()}`);
+}
 
-function openTab(button) {
+function open_tab(button) {
     let tab = button.id;
-    window.history.replaceState({}, '', (tab === "me")? "/" : `/${tab}`);
-
+    save_state(tab);
     // Get all elements with class="tabcontent" and hide them
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
