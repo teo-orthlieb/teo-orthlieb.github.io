@@ -13,12 +13,12 @@
 
 <body onload="on_load()">
 	<div class="tab">
-		<button class="tablinks" id="tab_me" onclick="openTab(this, 'me')">Téo Orthlieb</button>
-		<button class="tablinks" id="tab_projects" onclick="openTab(this, 'projects')">Projects</button>
-		<button class="tablinks" id="tab_extracurricular" onclick="openTab(this, 'extracurricular')">Extracurricular</button>
+		<button class="tablinks" id="me" onclick="openTab(this)">Téo Orthlieb</button>
+		<button class="tablinks" id="projects" onclick="openTab(this)">Projects</button>
+		<button class="tablinks" id="extracurricular" onclick="openTab(this)">Extracurricular</button>
 	</div>
 
-	<div id="me" class="tabcontent">
+	<div id="tab_me" class="tabcontent">
 		<div>
 			<img src="photo.png" alt="Picture of Téo">
 		</div>
@@ -27,11 +27,11 @@
 		</div>
 	</div>
 
-	<div id="projects" class="tabcontent">
+	<div id="tab_projects" class="tabcontent">
 		<h3>My Projects</h3>
 	</div>
 
-	<div id="extracurricular" class="tabcontent">
+	<div id="tab_extracurricular" class="tabcontent">
 		<h3>My Hobbies</h3>
 	</div>
 

@@ -1,14 +1,15 @@
 function on_load() {
-    openTab(window.location.pathname);
+    let path = window.location.pathname;
+    let button = document.getElementById(path);
+    if(button === null) {
+        button = document.getElementById("me");
+    }
+    openTab(button);
 }
 
 
-function openTab(tab) {
-    let button = document.getElementById(`tab_${tab}`);
-    if(button === null) {
-        tab = "me";
-        button = document.getElementById(`tab_${tab}`);
-    }
+function openTab(button) {
+    let tab = button.id;
     window.history.replaceState({}, '', (tab === "me")? "/" : `/${tab}`);
 
     // Get all elements with class="tabcontent" and hide them
@@ -24,6 +25,6 @@ function openTab(tab) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tab).style.display = "block";
+    document.getElementById(`tab_${tab}`).style.display = "block";
     button.className += " active";
 }

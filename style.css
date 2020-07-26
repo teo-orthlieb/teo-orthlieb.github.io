@@ -55,14 +55,14 @@ body {
 /* ------------------------------------
     ME
 ------------------------------------ */
-#me {
+#tab_me {
 	padding: 2%;
 }
 
-#me div:first-child {
+#tab_me div:first-child {
 	/* the side div */
 }
 
-#me div:nth-child(2) {
+#tab_me div:nth-child(2) {
 	/* the content div */
 }
