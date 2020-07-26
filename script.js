@@ -14,7 +14,15 @@ function save_state(tab) {
     } else {
         params.set("t", tab);
     }
-    window.history.replaceState({}, '', `/?${params.toString()}`);
+    let param_count = 0;
+    for (let p of params) {
+        param_count += 1;
+    }
+    if(param_count > 0) {
+        window.history.replaceState({}, '', `/?${params.toString()}`);
+    } else {
+        window.history.replaceState({}, '', '');
+    }
 }
 
 function open_tab(button) {
