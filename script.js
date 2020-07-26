@@ -21,7 +21,7 @@ function save_state(tab) {
     if(param_count > 0) {
         window.history.replaceState({}, '', `/?${params.toString()}`);
     } else {
-        window.history.replaceState({}, '', '');
+        window.history.replaceState({}, '', '/');
     }
 }
 
