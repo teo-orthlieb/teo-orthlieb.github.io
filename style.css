@@ -12,6 +12,7 @@ body {
 	width: 100%;
 }
 
+
 /* ------------------------------------
     HEADER
 ------------------------------------ */
@@ -41,9 +42,14 @@ body {
 	padding-top: 14px;
 }
 
+
+/* ------------------------------------
+    TAB CONTENTS
+------------------------------------ */
 .tabcontent {
 	display: none;
 	animation: fadeEffect 1s;
+	padding: 2%;
 }
 
 @keyframes fadeEffect {
@@ -55,10 +61,6 @@ body {
 /* ------------------------------------
     ME
 ------------------------------------ */
-#tab_me {
-	padding: 2%;
-}
-
 #tab_me div:first-child {
 	/* the side div */
 }
