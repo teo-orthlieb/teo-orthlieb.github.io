@@ -18,10 +18,14 @@ function save_state(tab) {
     for (let p of params) {
         param_count += 1;
     }
+    let path = location.protocol + '//' + location.host + location.pathname;
+    if (path.slice(-1) === '/') {
+        path = path.substr(0, path.length-1);
+    }
     if(param_count > 0) {
-        window.history.replaceState({}, '', `/?${params.toString()}`);
+        window.history.replaceState({}, '', `${path}/?${params.toString()}`);
     } else {
-        window.history.replaceState({}, '', '/');
+        window.history.replaceState({}, '', `${path}`);
     }
 }
 

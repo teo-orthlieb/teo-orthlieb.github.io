@@ -1,10 +1,10 @@
 body {
 	--whitish: #DADADA;
-	--light-gray: #404049;
+	--light-gray: #808089;
 	--gray: #35353A;
 	--dark-gray: #28282E;
 	--blackish: #1c1c21;
-	background: var(--gray);
+	background: var(--dark-gray);
 	font-family: "Roboto", serif;
 	color: var(--whitish);
 	margin: 0;
@@ -23,23 +23,30 @@ body {
 }
 
 .tablinks {
-	background: var(--dark-gray);
-	color: var(--whitish);
+	background: var(--blackish);
+	color: var(--light-gray);
 	border: none;
 	border-radius: 10px 10px 0 0;
 	cursor: pointer;
-	padding: 8px 16px;
+	padding-bottom: 2px;
+	margin-right: 15px;
+	margin-bottom: 5px;
 	font-size: 1.5em;
 }
 
 .tablinks:hover {
-	background: var(--light-gray);
+	border-bottom: var(--gray) solid 6px;
 }
 
 .tablinks.active {
-	background-color: var(--gray);
+	border-bottom: var(--whitish) solid 6px;
 	color: white;
-	padding-top: 14px;
+}
+
+#me {
+	padding-bottom: 0;
+	margin-bottom: 5px;
+	font-size: 2em;
 }
 
 
@@ -63,8 +70,11 @@ body {
 ------------------------------------ */
 #tab_me div:first-child {
 	/* the side div */
+	float: left;
 }
 
 #tab_me div:nth-child(2) {
 	/* the content div */
+	width: 80%;
+	margin-left: 15%;
 }
