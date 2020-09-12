@@ -1,4 +1,4 @@
-function on_load() {
+window.onload = function on_load() {
     let tab = new URLSearchParams(window.location.search).get("t");
     let button = document.getElementById(tab);
     if(button === null) {
@@ -45,6 +45,6 @@ function open_tab(button) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(`tab_${tab}`).style.display = "block";
+    document.getElementById(`tab_${tab}`).style.display = "flex";
     button.className += " active";
 }
