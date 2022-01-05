@@ -1,10 +1,10 @@
 body {
-	--whitish: #DADADA;
+	--whitish: #D6D6D6;
 	--light-gray: #808089;
 	--lightish-gray: #45454D;
 	--gray: #35353A;
-	--dark-gray: #28282E;
-	--darker-gray: #222228;
+	--dark-gray: #26262D;
+	--darker-gray: #212126;
 	--blackish: #1c1c21;
 	--accent: #e8d897;
 	--accent-shade: #DEC76A;
@@ -113,7 +113,7 @@ a:hover {
 	display: none;
 	animation: fadeEffect 1s;
 	padding: 3%;
-	width: 50%;
+	width: 60%;
 	margin: auto;
 }
 
@@ -141,7 +141,29 @@ a:hover {
 	margin-top: 0;
 }
 
+#tab_me img {
+	background-color: var(--blackish);
+	border-radius: 5px;
+	padding: 20px;
+	padding-bottom: 0;
+}
 
 /* ------------------------------------
     PROJECTS
 ------------------------------------ */
+#tab_projects {
+	flex-wrap: wrap;
+}
+
+#tab_projects > div {
+	margin: 4ex;
+	flex-direction: column;
+}
+
+#tab_projects > div > a {
+	display: block;
+}
+
+#tab_projects h3 {
+	display: inline-block;
+}
