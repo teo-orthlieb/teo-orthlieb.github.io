@@ -1,7 +1,7 @@
 window.onload = function on_load() {
     let tab = new URLSearchParams(window.location.search).get("t");
     let button = document.getElementById(tab);
-    if(button === null) {
+    if (button === null) {
         button = document.getElementById("me");
     }
     open_tab(button);
@@ -9,7 +9,7 @@ window.onload = function on_load() {
 
 function save_state(tab) {
     let params = new URLSearchParams(window.location.search);
-    if(tab === "me") {
+    if (tab === "me") {
         params.delete("t");
     } else {
         params.set("t", tab);
@@ -20,9 +20,9 @@ function save_state(tab) {
     }
     let path = location.protocol + '//' + location.host + location.pathname;
     if (path.slice(-1) === '/') {
-        path = path.substr(0, path.length-1);
+        path = path.substr(0, path.length - 1);
     }
-    if(param_count > 0) {
+    if (param_count > 0) {
         window.history.replaceState({}, '', `${path}/?${params.toString()}`);
     } else {
         window.history.replaceState({}, '', `${path}`);

@@ -1,5 +1,6 @@
 body {
 	--whitish: #D6D6D6;
+	--lighter-gray: #B0B0BD;
 	--light-gray: #808089;
 	--lightish-gray: #45454D;
 	--gray: #35353A;
@@ -15,7 +16,7 @@ body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	line-height: 1.4;
+	line-height: 1.5;
 	font-size: 18px;
 }
 
@@ -30,7 +31,6 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
 	background-color: var(--lightish-gray);
 }
-
 
 html {
 	overflow-y: scroll;
@@ -65,6 +65,10 @@ a:visited {
 a:hover {
 	color: var(--accent-tint);
 	text-decoration: underline 3px;
+}
+
+small {
+	color: var(--lighter-gray);
 }
 
 /* ------------------------------------
@@ -155,11 +159,13 @@ a:hover {
 	padding-bottom: 0;
 }
 
+
 /* ------------------------------------
     PROJECTS
 ------------------------------------ */
 #tab_projects {
 	flex-direction: column;
+	width: 80%;
 }
 
 #tab_projects > div {
