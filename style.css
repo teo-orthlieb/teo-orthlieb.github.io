@@ -71,6 +71,15 @@ small {
 	color: var(--lighter-gray);
 }
 
+ul {
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
 /* ------------------------------------
     HEADER
 ------------------------------------ */
@@ -160,8 +169,8 @@ small {
 	padding-bottom: 0;
 }
 
-#tab_me > p > img {
-	margin-left: 5px;
+#tab_me li > img {
+	margin-right: 5px;
 	vertical-align: middle;
 }
 
@@ -184,6 +193,8 @@ small {
 #tab_projects > div {
 	display: flex;
 	flex-wrap: wrap;
+	margin: -4ex;
+	margin-top: 0;
 }
 
 #tab_projects h4 {

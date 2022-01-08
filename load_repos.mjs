@@ -60,6 +60,7 @@ async function repo_card(owner, repo) {
 		let star = htmlToElement(starIcon);
 		star.style.fill = "var(--lighter-gray)";
 		star.style.marginRight = "5px";
+		star.style.verticalAlign = "middle";
 		let stars = document.createElement("small");
 		stars.style.marginRight = "2em";
 		stars.innerText = starCount;
@@ -72,6 +73,7 @@ async function repo_card(owner, repo) {
 		let fork = htmlToElement(forkIcon);
 		fork.style.fill = "var(--lighter-gray)";
 		fork.style.marginRight = "5px";
+		fork.style.verticalAlign = "middle";
 		let forks = document.createElement("small");
 		forks.innerText = forkCount;
 		stats.appendChild(fork);
