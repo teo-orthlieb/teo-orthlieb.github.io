@@ -131,7 +131,7 @@ li {
 ------------------------------------ */
 .tabcontent {
 	display: none;
-	animation: fadeEffect 1s;
+	animation: fadeEffect 0.6s;
 	padding: 3%;
 	width: 65%;
 	margin: auto;
