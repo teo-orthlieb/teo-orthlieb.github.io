@@ -208,6 +208,14 @@ li {
 	flex-direction: column;
 }
 
+#tab_projects > div > div > div:hover {
+	box-shadow: 3px 3px 0px 2px var(--blackish);
+	transform: translate(-3px, -3px);
+	z-index: -1;
+	position: relative;
+}
+
+
 #tab_projects > div > div > a {
 	display: block;
 }
