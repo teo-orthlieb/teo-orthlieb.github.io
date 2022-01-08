@@ -90,6 +90,7 @@ li {
 	text-align: center;
 	position: sticky;
 	top: 0;
+	z-index: 999;
 }
 
 .tablinks {
@@ -131,7 +132,7 @@ li {
 ------------------------------------ */
 .tabcontent {
 	display: none;
-	animation: fadeEffect 0.6s;
+	animation: fadeEffect 0.8s;
 	padding: 3%;
 	width: 65%;
 	margin: auto;
@@ -209,9 +210,7 @@ li {
 }
 
 #tab_projects > div > div > div:hover {
-	box-shadow: 3px 3px 0px 2px var(--blackish);
-	transform: translate(-3px, -3px);
-	z-index: -1;
+	transform: scale(1.05);
 	position: relative;
 }
 
