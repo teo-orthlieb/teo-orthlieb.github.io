@@ -124,7 +124,7 @@ small {
 	display: none;
 	animation: fadeEffect 1s;
 	padding: 3%;
-	width: 60%;
+	width: 65%;
 	margin: auto;
 }
 
@@ -139,7 +139,8 @@ small {
 ------------------------------------ */
 #tab_me div:first-child {
 	/* the side div */
-	flex: 0 0 30%
+	flex: 0 0 30%;
+	line-height: 2;
 }
 
 #tab_me div:nth-child(2) {
@@ -152,11 +153,23 @@ small {
 	margin-top: 0;
 }
 
-#tab_me img {
+#tab_me > div > img {
 	background-color: var(--blackish);
 	border-radius: 5px;
 	padding: 20px;
 	padding-bottom: 0;
+}
+
+#tab_me > p > img {
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
+/* ------------------------------------
+    PAPERS
+------------------------------------ */
+#tab_papers {
+	flex-direction: column;
 }
 
 
