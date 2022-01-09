@@ -241,7 +241,17 @@ li {
 	position: relative;
 }
 
-
 #tab_projects > div > div > a {
 	display: block;
+}
+
+.language_color {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border: 1px solid rgb(240 246 252 / 20%);
+	border-radius: 50%;
+	margin-right: 5px;
 }
