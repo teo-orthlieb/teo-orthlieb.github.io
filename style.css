@@ -143,6 +143,11 @@ li {
 	to {opacity: 1;}
 }
 
+@media only screen and (max-width: 768px) {
+	.tabcontent {
+		width: 95%;
+	}
+}
 
 /* ------------------------------------
     ME
@@ -163,7 +168,17 @@ li {
 	margin-top: 0;
 }
 
-#tab_me > div > img {
+#tab_me > div > div {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+#tab_me ul {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#tab_me > div > div > img {
 	background-color: var(--blackish);
 	border-radius: 5px;
 	padding: 20px;
@@ -174,6 +189,18 @@ li {
 	margin-right: 5px;
 	vertical-align: middle;
 }
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	#tab_me {
+		flex-direction: column;
+	}
+
+	#tab_me div:first-child {
+		flex-direction: row;
+	}
+}
+  
 
 /* ------------------------------------
     PAPERS
