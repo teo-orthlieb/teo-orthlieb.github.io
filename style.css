@@ -185,10 +185,20 @@ li {
 	padding-bottom: 0;
 }
 
-#tab_me li > img {
-	margin-right: 5px;
+#tab_me div:first-child img {
 	vertical-align: middle;
+	margin-left: 3ex;
 }
+
+#tab_me div:first-child img:nth-child(1) {
+	vertical-align: middle;
+	margin-left: 0;
+}
+
+#tab_me div:first-child li > img {
+	margin-right: 5px;
+}
+
 
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
@@ -220,20 +230,26 @@ li {
 
 #tab_projects > div {
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	margin: -4ex;
 	margin-top: 0;
 }
 
 #tab_projects h4 {
 	display: inline-block;
+	margin: 2ex 0 0 0;
 }
 
 #tab_projects > div > div {
-	margin: 4ex;
-	margin-top: 2ex;
+	margin: 2ex 4ex 0 0;
 	display: block;
-	flex-direction: column;
+	flex-direction: row;
+}
+
+#tab_projects > div > div > div {
+	display: inline-block;
+    vertical-align: top;
+    margin: 0 1ex 0 0;
 }
 
 #tab_projects > div > div > div:hover {
