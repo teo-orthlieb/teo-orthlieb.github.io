@@ -1,10 +1,23 @@
 window.onload = function on_load() {
+    display_age();
     let tab = new URLSearchParams(window.location.search).get("t");
     let button = document.getElementById(tab);
     if (button === null) {
         button = document.getElementById("me");
     }
     open_tab(button);
+}
+
+function years_old(date) {
+    return new Date(new Date() - new Date(date)).getFullYear() - 1970;
+}
+
+function display_age() {
+    let bday = document.getElementById("bday").textContent.split("/");
+    console.log(bday);
+    let age = years_old(new Date(bday[0], bday[1] - 1, bday[2]));
+    document.getElementById("bday").textContent = age.toString();
+    console.log(age);
 }
 
 function save_state(tab) {
