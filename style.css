@@ -1,16 +1,5 @@
 body {
-	--whitish: #D6D6D6;
-	--lighter-gray: #B0B0BD;
-	--light-gray: #808089;
-	--lightish-gray: #45454D;
-	--gray: #35353A;
-	--dark-gray: #26262D;
-	--darker-gray: #212126;
-	--blackish: #1c1c21;
-	--accent: #e8d897;
-	--accent-shade: #DEC76A;
-	--accent-tint: #EADB9E;
-	background: var(--dark-gray);
+	background: var(--blackish);
 	font-family: "Roboto", serif;
 	color: var(--whitish);
 	margin: 0;
@@ -83,8 +72,8 @@ li {
 /* ------------------------------------
     HEADER
 ------------------------------------ */
-.tab {
-	background: var(--blackish);
+#header {
+	background: var(--darker-gray);
 	padding-left: 10px;
 	padding-top: 10px;
 	text-align: center;
@@ -94,7 +83,7 @@ li {
 }
 
 .tablinks {
-	background: var(--blackish);
+	background: var(--darker-gray);
 	color: var(--light-gray);
 	border: none;
 	border-radius: 10px 10px 0 0;
@@ -117,13 +106,17 @@ li {
 }
 
 .tablinks.active {
-	color: white;
+	color: var(--whitish);
 	border-bottom: none;
 }
 
 #me.active {
 	color: var(--accent);
 	border-bottom: #0000 solid 6px;
+}
+
+.cv {
+	display: none;
 }
 
 
@@ -192,7 +185,7 @@ li {
 }
 
 #tab_me > div > div > img {
-	background-color: var(--blackish);
+	background-color: var(--darker-gray);
 	border-radius: 5px;
 	padding: 20px;
 	padding-bottom: 0;

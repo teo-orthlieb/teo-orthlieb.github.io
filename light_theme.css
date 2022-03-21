@@ -1,0 +1,18 @@
+body {
+	--blackish: #FFF;
+	--darker-gray: #eeeef8;
+	--dark-gray: #808089;
+	--gray: #45454D;
+	--lightish-gray: #35353A;
+	--light-gray: #5f5f6e;
+	--lighter-gray: #212126;
+	--whitish: #1c1c21;
+	--accent: #a59400;
+	--accent-shade: #817400;
+	--accent-tint: #d1bc00;
+}
+
+#github_logo {
+	background-color: var(--whitish);
+	border-radius: 5px;
+}

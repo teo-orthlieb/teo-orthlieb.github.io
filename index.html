@@ -10,15 +10,18 @@
 	<meta name="author" content="Téo Orthlieb">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="light_theme.css">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="pdf.css">
 </head>
 
 <body>
-	<div class="tab">
+	<div id="header">
 		<button class="tablinks" id="me" onclick="open_tab(this)">Téo Orthlieb</button>
 		<button class="tablinks" id="papers" onclick="open_tab(this)">Papers</button>
 		<button class="tablinks" id="projects" onclick="open_tab(this)">Open Source</button>
 	</div>
+	<h1 class="cv">Téo Orthlieb <small>- Machine Learning Engineer</small></h1>
 
 	<div id="tab_me" class="tabcontent">
 		<div>
@@ -35,7 +38,7 @@
 						href="mailto:teo.orthlieb@gmail.com">teo.orthlieb@gmail.com</a></li>
 				<li><img src="linkedin_icon.png" alt="linkedin icon" width="28"> <a
 						href="https://www.linkedin.com/in/teo-orthlieb">Téo Orthlieb</a></li>
-				<li><img src="github_icon.png" alt="github icon" width="28"> <a
+				<li><img src="github_icon.png" alt="github icon" width="28" id="github_logo"> <a
 						href="https://github.com/Inspirateur">Inspirateur</a></li>
 				<li><img src="discord_icon.png" alt="discord icon" width="28"> Inspi#8989</li>
 				<li><img src="codingame_icon.png" alt="codingame icon" width="28"> <a

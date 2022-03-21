@@ -14,10 +14,8 @@ function years_old(date) {
 
 function display_age() {
     let bday = document.getElementById("bday").textContent.split("/");
-    console.log(bday);
     let age = years_old(new Date(bday[0], bday[1] - 1, bday[2]));
     document.getElementById("bday").textContent = age.toString();
-    console.log(age);
 }
 
 function save_state(tab) {

@@ -1,0 +1,13 @@
+body {
+	--whitish: #D6D6D6;
+	--lighter-gray: #B0B0BD;
+	--light-gray: #808089;
+	--lightish-gray: #45454D;
+	--gray: #35353A;
+	--dark-gray: #26262D;
+	--darker-gray: #212126;
+	--blackish: #1c1c21;
+	--accent: #e8d897;
+	--accent-shade: #DEC76A;
+	--accent-tint: #EADB9E;
+}
