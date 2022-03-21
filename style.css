@@ -134,7 +134,7 @@ li {
 	display: none;
 	animation: fadeEffect 0.8s;
 	padding: 3%;
-	width: 65%;
+	width: 60%;
 	margin: auto;
 }
 
@@ -180,6 +180,15 @@ li {
 #tab_me ul {
 	display: inline-block;
 	vertical-align: top;
+}
+
+#tab_me ul:last-child {
+	margin-top: 0;
+	line-height: 1.5;
+}
+
+#tab_me h4 {
+	margin-bottom: 0;
 }
 
 #tab_me > div > div > img {
