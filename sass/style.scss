@@ -1,0 +1,77 @@
+@import "_dark";
+
+body {
+	background: $bg;
+	font-family: "Roboto", sans-serif;
+	color: $text;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	line-height: 1.5;
+	font-size: 18px;
+}
+
+body::-webkit-scrollbar {
+	background-color: lighten($bg, 10%);
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: lighten($bg, 20%);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+	background-color: lighten($bg, 30%);
+}
+
+html {
+	overflow-y: scroll;
+}
+
+h3 {
+	font-weight: normal;
+	font-size: xx-large;
+	margin-bottom: 16px;
+}
+
+h4 {
+	font-size: x-large;
+	font-weight: normal;
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+
+p {
+	margin-top: 0;
+}
+
+a {
+	color: $accent;
+	text-decoration: none;
+}
+
+a:visited {
+	color: darken($accent, 10%);
+}
+
+a:hover {
+	color: lighten($accent, 10%);
+	text-decoration: underline 3px;
+}
+
+small {
+	color: lighten($bg, 60%);
+}
+
+ul {
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
+.tabcontent {
+	padding: 1rem;
+	margin: auto;
+}

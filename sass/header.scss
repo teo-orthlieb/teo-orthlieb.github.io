@@ -1,0 +1,44 @@
+@import "_dark";
+
+#header {
+	background: darken($bg, 4%);
+	padding-left: 10px;
+	padding-top: 10px;
+	text-align: center;
+	position: sticky;
+	top: 0;
+	z-index: 999;
+}
+
+.tablinks {
+	background: darken($bg, 4%);
+	color: lighten($bg, 60%);
+	border: none;
+	border-radius: 10px 10px 0 0;
+	cursor: pointer;
+	padding-bottom: 2px;
+	margin-right: 15px;
+	margin-bottom: 5px;
+	font-size: 1.5em;
+
+	&:visited {
+		color: lighten($bg, 60%);
+	}
+
+	&.active {
+		color: $text;
+		border-bottom: none;
+	}	
+}
+
+#me {
+	border-bottom: #0000 solid 6px;
+	padding-bottom: 0;
+	margin-bottom: 5px;
+	font-size: 2em;
+
+	&.active {
+		color: $accent;
+		border-bottom: #0000 solid 6px;
+	}
+}

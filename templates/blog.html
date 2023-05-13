@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="tab_blog" class="tabcontent">
+  <h3 class="title">
+    {{ section.title }}
+  </h3>
+  <div class="posts">
+    <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->  
+    {% for page in section.pages %}
+    <div class="post">
+      <div class="head">
+        <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
+        <small>{{ page.date }}</small>
+      </div>
+      <p>{{ page.description }}</p>
+      <small>{{ page.extra.topic }}</small>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

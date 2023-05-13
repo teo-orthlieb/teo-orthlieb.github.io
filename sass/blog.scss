@@ -1,0 +1,30 @@
+@import "_dark";
+
+#tab_blog {
+    width: 60%;
+
+    .post {
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px;
+        margin-bottom: 1.5rem;
+        background-color: lighten($bg, 7%);
+    
+        .head {
+            display: flex;
+    
+            a {
+                font-size: larger;
+            }
+        
+            small {
+                margin-left: auto;
+            }
+        }
+
+        &:hover {
+            transform: scale(1.05);
+            position: relative;
+            box-shadow: 5px 5px 0 black;
+        }
+    }    
+}
