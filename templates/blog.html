@@ -14,7 +14,12 @@
         <small>{{ page.date }}</small>
       </div>
       <p>{{ page.description }}</p>
-      <small>{{ page.extra.topic }}</small>
+      <div class="foot">
+        <small>{{ page.extra.topic }}</small>
+        {% if page.extra.url %}
+          <img src="external.svg" alt="external link icon" width="32px"></img>
+        {% endif %}
+      </div>
     </div>
     {% endfor %}
   </div>

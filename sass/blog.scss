@@ -8,7 +8,19 @@
         border-radius: 5px;
         margin-bottom: 1.5rem;
         background-color: lighten($bg, 7%);
-    
+
+        &:hover {
+            transform: scale(1.05);
+            position: relative;
+            box-shadow: 5px 5px 0 black;
+
+            .foot {
+                img {
+                    filter: invert(70%);
+                }
+            }
+        }
+
         .head {
             display: flex;
     
@@ -21,10 +33,15 @@
             }
         }
 
-        &:hover {
-            transform: scale(1.05);
-            position: relative;
-            box-shadow: 5px 5px 0 black;
+        .foot {
+            display: flex;
+            small {
+                align-self: center;
+            }
+
+            img {
+                margin-left: auto;
+            }
         }
     }    
 }
