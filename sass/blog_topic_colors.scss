@@ -1,0 +1,31 @@
+@mixin postColor($color) {
+    &:hover {
+        box-shadow: 5px 5px 0 darken($color, 10%);
+
+        .kind {
+            color: lighten($color, 10%);
+        }
+    }
+}
+
+#tab_blog {
+    .useful {
+        @include postColor(#8DB255);
+    }
+
+    .game {
+        @include postColor(#F7CA18);
+    }
+
+    .pet-project {
+        @include postColor(#976bac);
+    }
+
+    .research {
+        @include postColor(#2094d3);
+    }
+
+    .reflexion {
+        @include postColor(#95A5A6);
+    }
+}

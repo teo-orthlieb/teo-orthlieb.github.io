@@ -8,10 +8,11 @@
   <div class="posts">
     <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->  
     {% for page in section.pages %}
-    <div class="post">
+    <div class="post {{ page.extra.kind | slugify }}">
       <div class="head">
         <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
-        <small>{{ page.date }}</small>
+        <small class="kind">{{ page.extra.kind }}</small>
+        <small>📆 {{ page.date }}</small>
       </div>
       <p>{{ page.description }}</p>
       <div class="foot">
