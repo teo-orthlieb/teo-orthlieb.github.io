@@ -1,11 +1,19 @@
 @import "_dark";
 
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
 #tab_me {
 	display: flex;
 	flex-direction: row;
 	width: fit-content;
 
-	#side {
+	.side {
 		display: flex;
 		line-height: 2;
 		flex-direction: column;
@@ -33,7 +41,7 @@
 		}	
 	}
 
-	#center {
+	.center {
 		max-width: 50rem;
 		margin-left: 1em;
 	

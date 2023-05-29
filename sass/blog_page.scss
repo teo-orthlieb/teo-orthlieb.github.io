@@ -1,0 +1,38 @@
+@import "_dark";
+
+.blog-page {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    .side-menu {
+        width: 20%;
+        margin-right: 2rem;
+        background-color: darken($bg, 2);
+        height: 100%;
+
+        .project {
+            padding: 1rem;
+            background-color: darken($accent2, 15);
+            h3 {
+                margin-top: 0;
+            }
+        }
+
+        .links {
+            padding: 1rem;
+            background-color: adjust-hue(darken($accent2, 10), $degrees: 20);
+
+            a {
+                color: $text;
+            }
+        }
+    }
+    
+    .article {
+        .title {
+            white-space: pre;
+            margin: 0;
+        }
+    }
+}

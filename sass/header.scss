@@ -1,7 +1,7 @@
 @import "_dark";
 
 #header {
-	background: darken($bg, 4%);
+	background: darken($bg, 5%);
 	padding-left: 10px;
 	padding-top: 10px;
 	text-align: center;
@@ -11,7 +11,7 @@
 }
 
 .tablinks {
-	background: darken($bg, 4%);
+	background: darken($bg, 5%);
 	color: lighten($bg, 60%);
 	border: none;
 	border-radius: 10px 10px 0 0;
