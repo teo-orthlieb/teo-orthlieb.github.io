@@ -21,11 +21,11 @@
       id="me" href="{{ get_url(path='') }}"
     >Téo Orthlieb</a>
     <a 
-      class="tablinks {% if current_path == '/projects/' %}{{'active'}}{% endif %}" 
+      class="tablinks {% if current_path is starting_with('/projects/') %}{{'active'}}{% endif %}" 
       id="projects" href="{{ get_url(path='@/projects/_index.md') }}"
     >Open Source</a>
     <a 
-      class="tablinks {% if current_path == '/blog/' %}{{'active'}}{% endif %}" 
+      class="tablinks {% if current_path is starting_with('/blog/') %}{{'active'}}{% endif %}" 
       id="blog" href="{{ get_url(path='@/blog/_index.md') }}"
     >Blog</a>
   </div>
