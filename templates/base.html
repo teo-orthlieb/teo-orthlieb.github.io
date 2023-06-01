@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="{{ get_url(path='colors.css') }}">
   <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
   <link rel="stylesheet" href="{{ get_url(path='header.css') }}">
   <link rel="stylesheet" href="{{ get_url(path='main_page.css') }}">
@@ -14,7 +13,7 @@
   <title>Téo Orthlieb</title>
 </head>
 
-<body class="dark">
+<body class="initially_hidden">
   <div id="header">
     <a 
       class="tablinks {% if current_path == '/' %}{{'active'}}{% endif %}" 
@@ -29,7 +28,6 @@
       id="blog" href="{{ get_url(path='@/blog/_index.md') }}"
     >Blog</a>
     <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
-
   </div>
 
   {% block content %} {% endblock %}

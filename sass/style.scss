@@ -1,19 +1,23 @@
-body {
+.initially_hidden {
+	display: none;
+}
+
+:root, html[data-theme='dark'] {
+	--main: #000;
+    --opposite: #fff;
+    --text: #c4c4c4;
+    --bg: #1c1c21;
+    --accent: #e8d897;
+    --accent2: #976997;
+}
+
+html[data-theme='light'] {
     --main: #cccccc;
     --opposite: #707070;
     --text: #222;
     --bg: #eee;
     --accent: #d6a70d;
-    --accent2: #a37da3;
-}
-
-body.dark {
-    --main: #000;
-    --opposite: #fff;
-    --text: #c4c4c4;
-    --bg: #1c1c21;
-    --accent: #e8d897;
-    --accent2: #976997;    
+    --accent2: #a37da3;  
 }
 
 body {
