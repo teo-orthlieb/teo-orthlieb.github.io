@@ -1,9 +1,25 @@
-@import "_dark";
+body {
+    --main: #cccccc;
+    --opposite: #707070;
+    --text: #222;
+    --bg: #eee;
+    --accent: #d6a70d;
+    --accent2: #a37da3;
+}
+
+body.dark {
+    --main: #000;
+    --opposite: #fff;
+    --text: #c4c4c4;
+    --bg: #1c1c21;
+    --accent: #e8d897;
+    --accent2: #976997;    
+}
 
 body {
-	background: $bg;
+	background: var(--bg);
 	font-family: "Roboto", sans-serif;
-	color: $text;
+	color: var(--text);
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -12,19 +28,19 @@ body {
 }
 
 body::-webkit-scrollbar {
-	background-color: mix($opposite, $bg, 10%);
+	background-color: color-mix(in srgb, var(--opposite) 10%, var(--bg));
 }
 
 body::-webkit-scrollbar-thumb {
-	background-color: mix($opposite, $bg, 20%);
+	background-color: color-mix(in srgb, var(--opposite) 20%, var(--bg));
 }
 
 body::-webkit-scrollbar-thumb:hover {
-	background-color: mix($opposite, $bg, 30%);
+	background-color: color-mix(in srgb, var(--opposite) 30%, var(--bg));
 }
 
 ::selection {
-	background: $accent2;
+	background: var(--accent2);
 }
 
 html {
@@ -49,21 +65,21 @@ p {
 }
 
 a {
-	color: $accent;
+	color: var(--accent);
 	text-decoration: none;
 }
 
 a:visited {
-	color: $accent2;
+	color: var(--accent2);
 }
 
 a:hover {
-	color: mix($opposite, $accent, 10%);
+	color: color-mix(in srgb, var(--opposite) 10%, var(--accent));
 	text-decoration: underline 3px;
 }
 
 small {
-	color: mix($opposite, $bg, 60%);
+	color: color-mix(in srgb, var(--opposite) 5%, var(--text));
 }
 
 ul {

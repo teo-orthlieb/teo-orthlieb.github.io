@@ -1,5 +1,3 @@
-@import "_dark";
-
 #tab_projects {
 	flex-direction: column;
 	width: 80%;
@@ -22,7 +20,7 @@
         flex-direction: row;
         
         >div {
-            background-color: mix($opposite, $bg, 7%);
+            background-color: color-mix(in srgb, var(--opposite) 7%, var(--bg));
             display: inline-block;
             vertical-align: top;
             margin: 0 1rem 1rem 0;
@@ -58,7 +56,7 @@
                 margin-top: 0.7rem;
 
                 svg {
-                    fill: mix($main, $text, 10%);
+                    fill: color-mix(in srgb, var(--main) 10%, var(--text));
                     margin-left: 0.5rem;
                     margin-right: 0.1rem;
                 }
