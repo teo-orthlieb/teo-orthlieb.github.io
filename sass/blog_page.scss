@@ -8,13 +8,13 @@
     .side-menu {
         width: 18%;
         margin-right: 6rem;
-        background-color: darken($bg, 2);
+        background-color: mix($main, $bg, 20%);
 
         .project {
             padding: 1rem 1rem 0.01rem 1rem;
             margin: 1rem -3rem 1rem 1rem;
             border-radius: 100px 1000px 1000px 100px;
-            background-color: darken($accent2, 15);
+            background-color: mix($main, $accent2, 40%);
             h3 {
                 margin-top: 0;
             }
@@ -24,7 +24,7 @@
             padding: 1rem;
             margin: 1rem -2rem 1rem 1rem;
             border-radius: 100px 1000px 1000px 100px;
-            background-color: adjust-hue(darken($accent2, 10), $degrees: 20);
+            background-color: adjust-hue(mix($main, $accent2, 40%), $degrees: 20);
 
             a {
                 color: $text;
@@ -60,16 +60,16 @@
 
         h2 {
             font-weight: normal;
-            text-decoration: underline solid lighten($bg, 15) 5px;
+            text-decoration: underline solid mix($opposite, $bg, 15%) 5px;
             margin-top: 2rem;
         }
 
         blockquote {
             padding: 0.5rem 1rem;
-            background-color: lighten($bg, 3);
+            background-color: mix($opposite, $bg, 3%);
             border-radius: 5px;
-            border-left: 6px lighten($bg, 15) solid;
-            color: darken($text, 5);
+            border-left: 6px mix($opposite, $bg, 15%) solid;
+            color: mix($main, $text, 5%);
 
             p {
                 margin: 0;

@@ -1,7 +1,7 @@
 @import "_dark";
 
 #header {
-	background: darken($bg, 5%);
+	background: mix($main, $bg, 35%);
 	padding-left: 10px;
 	padding-top: 10px;
 	text-align: center;
@@ -10,9 +10,8 @@
 	z-index: 999;
 }
 
-.tablinks {
-	background: darken($bg, 5%);
-	color: lighten($bg, 60%);
+.tablinks, .tablinks:visited {
+	color: $text;
 	border: none;
 	border-radius: 10px 10px 0 0;
 	cursor: pointer;
@@ -20,10 +19,6 @@
 	margin-right: 15px;
 	margin-bottom: 5px;
 	font-size: 1.5em;
-
-	&:visited {
-		color: lighten($bg, 60%);
-	}
 
 	&.active {
 		color: $accent;

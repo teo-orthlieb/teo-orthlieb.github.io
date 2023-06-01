@@ -22,7 +22,7 @@
         flex-direction: row;
         
         >div {
-            background-color: lighten($bg, 7%);
+            background-color: mix($opposite, $bg, 7%);
             display: inline-block;
             vertical-align: top;
             margin: 0 1rem 1rem 0;
@@ -58,7 +58,7 @@
                 margin-top: 0.7rem;
 
                 svg {
-                    fill: darken($text, 5%);
+                    fill: mix($main, $text, 10%);
                     margin-left: 0.5rem;
                     margin-right: 0.1rem;
                 }

@@ -1,9 +1,11 @@
+@import "_dark";
+
 @mixin postColor($color) {
     &:hover {
-        box-shadow: 5px 5px 0 darken($color, 10%);
+        box-shadow: 5px 5px 0 mix($main, $color, 30%);
 
         .kind {
-            color: lighten($color, 10%);
+            color: mix($opposite, $color, 20%);
         }
     }
 }
