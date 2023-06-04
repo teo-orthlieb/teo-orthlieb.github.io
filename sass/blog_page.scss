@@ -8,6 +8,10 @@
         margin-right: 6rem;
         background-color: color-mix(in srgb, var(--main) 20%, var(--bg));
 
+        a {
+            color: var(--text);
+        }
+
         .project {
             padding: 1rem 1rem 0.01rem 1rem;
             margin: 1rem -3rem 1rem 1rem;
@@ -23,8 +27,26 @@
             margin: 1rem -2rem 1rem 1rem;
             border-radius: 100px 1000px 1000px 100px;
             background-color: color-mix(in srgb, var(--main) 40%, var(--accent2));
+        }
 
-            a {
+        .page-link {
+            margin-left: 1rem;
+        }
+
+        .toc {
+            margin-top: 0;
+            margin-left: 2rem;
+            font-size: smaller;
+
+            ul {
+                margin-left: 1.5rem;
+
+                li {
+                    margin-bottom: 0;
+                }
+            }
+
+            a, a:visited {
                 color: var(--text);
             }
         }
@@ -45,7 +67,7 @@
             flex-direction: column;
         
             span {
-                font-size: 50px;
+                font-size: 4rem;
                 text-align: left !important;
                 clear: left;
             }
@@ -58,8 +80,14 @@
 
         h2 {
             font-weight: normal;
+            font-size: 2.5rem;
             text-decoration: underline solid color-mix(in srgb, var(--opposite) 15%, var(--bg)) 5px;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            margin-bottom: 0;
         }
 
         blockquote {
@@ -76,6 +104,21 @@
 
         ol li {
             list-style-type: decimal;
+        }
+
+        ul {
+            padding-left: 2rem;
+            margin-top: 0;
+
+            li {
+                list-style-type: circle;
+            }
+        } 
+
+
+        code {
+            background: color-mix(in srgb, var(--main) 15%, var(--bg));
+            padding: 0 5px;
         }
     }
 }
