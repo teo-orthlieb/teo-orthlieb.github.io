@@ -28,7 +28,7 @@ In our case, the simplest approach would be to first compute what I call "the vo
 Suppose we're making the word cloud of Alice, a biology student. Since Alice occupy much of her time with biology, she will probably tend to use technical biology words more often, such as "endemic", "genotype" etc.  
 Mathematically, we compute her vocabulary by counting every word Alice wrote on the Discord server, and how much she used them; so `Vp(w) = ` the amount of time Alice used the word `w` 
 
-> __Note__: this doesn't take into account multi-words expressions, such as "Hang in there", which lose all meaning when treated as separate words. 
+> **Note**: this doesn't take into account multi-words expressions, such as "Hang in there", which lose all meaning when treated as separate words. 
 We could get around it by counting every pair of words or every triplet of words - these would be called [2-grams and 3-grams](https://en.wikipedia.org/wiki/N-gram) - but this is outside the scope of this article so we'll stick with 1-grams here :)
 
 ### Scoring
@@ -53,7 +53,7 @@ As we just pointed out, counting how much Alice uses each word is not enough, we
 
 To implement this, we need to compute one more vocabulary: the global vocabulary, `Vg(w)`, that tells us how much each word as been used in total. It is also the sum of the vocabularies of every member of the Discord server, so it is quite easy to compute. Then we want to penalize words based on how common they are. There are multiples formula we can choose to do that using `Vg(w)` but the simplest is: `Sp(w) = Vp(w)/Vg(w)`, so to score a word `w` for a person `p` we divide how much `p` used `w` by how much it was used in total.
 
-> __Note__: Normalizing both vocabularies (diving by the sum) gets us values between 0 and 1, which is much nicer to work with if we want to tweak the formula using powers. For example we could want to penalize common words even more by doing `Sp(w) = Vp(w)/Vg(w)^2`, Vg squared will stay in [0;1] instead of blowing up.
+> **Note**: Normalizing both vocabularies (diving by the sum) gets us values between 0 and 1, which is much nicer to work with if we want to tweak the formula using powers. For example we could want to penalize common words even more by doing `Sp(w) = Vp(w)/Vg(w)^2`, Vg squared will stay in [0;1] instead of blowing up.
 
 And this works! The common words are penalized so the word cloud is no longer filled with "the", "an", "is", "and", and contains words that are actually specific to Alice!
 
@@ -68,3 +68,24 @@ In this Word Cloud (that also contains emojis) we can see:
 I've skipped over many details of [tokenization](https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization), dealing with Discord's API, and making the word cloud image itself; but the bottom line is: this scoring does work pretty well!
 
 ## Optimization note
+This solution works fine, and it only requires store 1 vocabulary per person, which is like 10 kB for active users.  
+10 kB/user would give 10 GB for 1 million users, which is very reasonable, even in RAM. However, I still decided to try and optimize it for fun, because it's an interesting problem to work on :p
+
+But since the score function requires the vocabulary of the user, how could you possibly make it work without storing all of it ?  
+Well, as it turns out, you don't *need* the whole vocabulary. Indeed, inspecting user vocabularies reveal that most words are only used once or twice; and since the scoring function multiplies by word count, words that are used very few time are very unlikely to make it into the word cloud. 
+
+> Instead of storing the whole vocabulary, we can make it work with just the top ~200 words of each user.
+
+But this is where it gets tricky.  
+If you try the simple solution of making a counter structure that caps at 200 words (<u>Solution **A**</u>), you run into a problem: the structure will only hold the first 200 unique words it encounters, after which all new words will be ignored.  
+Alternatively, you could try to estimate the vocabulary by storing the last 200 words used (<u>Solution **B**</u>) but it has the same issue of ignoring a lot of frequent words that came before. So we need a structure that is able to estimate decently well the most used words, without keeping track of all of them.  
+If you're familiar with this problem you might have already guessed where this is going: [Cache structures](https://en.wikipedia.org/wiki/Cache_replacement_policies). *Solution B* actually corresponds to the **L**east **R**ecently **U**sed (LRU) scheme, it's not appropriate here but there is other structures that seem interesting, notably: the Aging version of the [**N**ot **F**requently **U**sed](https://en.wikipedia.org/wiki/Page_replacement_algorithm#Not_frequently_used) (NFU) cache family. 
+Basically, the Aging cache proposes a simple modification of <u>Solution **A**</u>: 
+1. make a counter that it limited to 200 words
+2. Each time a word is read:  
+    2.1.a. If it's not in the counter and there's still room for it we add it to the counter with a count of *k*  
+    2.1.b. If it's already in the counter we add *k* to it  
+    2.2 every other word in the counter are decreased by a fixed amount *a* (or divided). If a word reaches 0 it is free to be replaced.  
+
+The crucial step here is 2.2, it is where the "aging" takes place. Words in the counter decay over time, allowing new words to take their place if they are not refreshed often enough! The speed of aging is controlled with parameter *a*, while *k* control the lifespan of new words.  
+Of course this biases the estimated vocabulary towards recent words, but this is perfectly fine for my use, because I wish for the vocabularies to evolve over time as new expressions come into users vocabulary.
