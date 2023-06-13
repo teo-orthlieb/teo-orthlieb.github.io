@@ -1,9 +1,11 @@
+$header-height: 3.5rem;
+
 #header {
 	background: color-mix(in srgb, var(--main) 35%, var(--bg));
-	padding: 10px 0 5px 10px;
 	text-align: center;
 	position: sticky;
 	top: 0;
+	height: $header-height;
 	z-index: 999;
 }
 
@@ -38,8 +40,7 @@
 	background-color: color-mix(in srgb, var(--main) 10%, var(--bg));
 	padding: 5px;
 	border-radius: 50px;
-	margin-bottom: -10px;
-	margin-right: 2rem;
+	margin: 0.5rem 2rem 0 0;
 	position: fixed;
 	right: 0;
 

@@ -1,3 +1,5 @@
+@import "header";
+
 .blog-page {
     display: flex;
     flex-direction: row;
@@ -7,6 +9,9 @@
         width: 18%;
         margin-right: 6rem;
         background-color: color-mix(in srgb, var(--main) 20%, var(--bg));
+        height: 100vh;
+        position: sticky;
+        top: $header-height;
 
         a {
             color: var(--text);
@@ -121,4 +126,16 @@
             padding: 0 5px;
         }
     }
+
+    @media screen and (max-width: 900px) {
+        .side-menu {
+            display: none;
+        }
+    
+        .article {
+            width: 95%;
+            margin: auto;
+        }
+    }
 }
+
