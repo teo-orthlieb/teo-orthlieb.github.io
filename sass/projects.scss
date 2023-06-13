@@ -76,8 +76,19 @@
 	margin-right: 5px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
 	.project {
 		width: 100%;
 	}
+
+    .projects {
+        display: flex !important;
+        flex-direction: column !important;
+        font-size: 14px !important;
+
+        >div {
+            width: 100% !important;
+            padding: 0.5rem 0.5rem 2.5rem 0.5rem !important;
+        }
+    }
 }

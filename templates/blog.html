@@ -11,15 +11,15 @@
     <div class="post {{ page.extra.kind | slugify }}">
       <div class="head">
         <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
-        <small class="kind">{{ page.extra.kind }}</small>
-        <small>📆 {{ page.date }}</small>
+        {% if page.extra.url %}
+          <img src="external.svg" alt="external link icon" width="24px"></img>
+        {% endif %}
+        <small class="kind optional">{{ page.extra.kind }}</small>
       </div>
       <p>{{ page.description }}</p>
       <div class="foot">
         <small>{{ page.extra.topic }}</small>
-        {% if page.extra.url %}
-          <img src="external.svg" alt="external link icon" width="32px"></img>
-        {% endif %}
+        <small>📆 {{ page.date }}</small>
       </div>
     </div>
     {% endfor %}

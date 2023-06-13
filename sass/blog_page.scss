@@ -61,9 +61,12 @@
 		max-width: 50rem;
         line-height: 1.7;
         font-size: larger;
-        text-align: justify;
-        text-justify: inter-word;
 
+        p {
+            text-align: justify;
+            text-justify: inter-word;    
+        }
+        
         .title {
             margin: 2rem 0;
             padding: 0;
@@ -127,7 +130,7 @@
         }
     }
 
-    @media screen and (max-width: 900px) {
+    @media only screen and (max-width: 900px) {
         .side-menu {
             display: none;
         }

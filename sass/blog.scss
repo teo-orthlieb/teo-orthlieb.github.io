@@ -39,11 +39,11 @@
             display: flex;
             small {
                 align-self: center;
-            }
 
-            img {
-                margin-left: auto;
+                &:first-child {
+                    margin-right: auto;
+                }
             }
         }
-    }    
+    }
 }

@@ -48,3 +48,9 @@ $header-height: 3.5rem;
 		box-shadow: 2px 2px 2px 0 var(--opposite);
 	}
 }
+
+@media only screen and (max-width: 900px) {
+	#theme_toggle {
+		display: none;
+	}
+}
