@@ -19,6 +19,27 @@ The second step is also not ideal, because manual assignment is prone to human e
 Understanding this, I took the challenge to make a software that would solve this problem more appropriately. Let's dive into how I went about it and how we tried it out for real the following year!
 
 ## The stable marriage problem
+So we want to assign students to projects based on their preferences and such that the game ideas are sufficiently staffed to be made into a prototype.
+If we take a look at the existing problems related to what we're doing we find that this kind of pairing problem has been heavily studied already! As an introduction to the field, we find the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) (sorry for the heteronormativiy):
+> Given `n` men and `n` women, where each person has ranked all members of the opposite sex in order of preference, marry the men and women together such that no 2 person prefer each other to their partner.
 
+And associated to this problem, we are handed down the simple yet remarkably effective Gale-Shapley algorithm, that goes like this:
+
+Repeat until everyone is paired:
+1. Each unpaired man proposes to the woman he wants most (and that he hasn't proposed to yet)
+2. Each woman (temporarily) selects the man she wants most out of the propositions she has
+
+In this setting, there is an equal number of "proposants" (in this case men) and "acceptants" (in this case women), but this procedure is extendable to University acceptation problems, if we treat each available seat as an individual "acceptant". Additionnally, it offers us 2 strong guarantees:
+- It's **stable**: no 2 person will prefer each other over their partner (thus solving the problem)
+- It's **truthful**: being honnest about your preferences is the best strategy to get what you want! 
+
+It's also worth noting that there are often multiples stable solutions and that the Gale-Shapley algorithm yields the best solution for the **proposing** group, so in the marriage example the men have it best. 
+Both stability and truthfulness are highly desirable properties for our usecase of assigning students to projects, but with great guarantees come great restrictions ...
+
+First, the stability breaks if we allow "same-sex marriage" (if the group of proposants is the same as the group of acceptants) because of [love triangles](https://en.wikipedia.org/wiki/Stable_roommates_problem#Solution). This is an interesting observation but it doesn't affect our use case, because students and project seats are 2 separate groups, so it's fine. The real bummer is the second restriction: if either group has no preferences the process is no longer truthful. You can see why this is the case in the marriage problem: if the women had no preferences for men then they would just stick with the first that proposed (no reason to swap) and men's wishlists would become strategic. This really hurts our plan, because the video game pitches have no preference for who makes them, we just need enough developpers to make a prototype out of the pitches. One way to get the truthfulness back would be to create random preferences for each game pitch towards the students but that would be unfair and we don't want that either.
+
+For this reason, I chose not to continue with the Gale-Shapley algorithm, even though it seemed to fit our needs at first. Maths are cruel.
+
+## The bacteria
 ### WIP
 Come back later :D
