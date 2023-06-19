@@ -2,7 +2,7 @@
     max-width: 50rem;
 
     .post {
-        padding: 0.3rem 0.6rem;
+        padding: 0.4rem 0.8rem;
         border-radius: 5px;
         margin-bottom: 1.5rem;
         background-color: color-mix(in srgb, var(--opposite) 4%, var(--bg));
@@ -12,7 +12,7 @@
             position: relative;
             box-shadow: 5px 5px 0 black;
 
-            .foot {
+            .head {
                 img {
                     filter: invert(70%);
                 }
@@ -28,9 +28,16 @@
                 margin-bottom: 0;
             }
             
+            img {
+                margin-left: 0.5rem;
+            }
+
             .kind {
                 margin-left: auto;
-                margin-right: 1em;
+
+                &:hover {
+                    cursor: default;
+                }
             }
         }
 

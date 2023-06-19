@@ -1,7 +1,7 @@
 +++
 title = "Assigning students to semester projects"
 date = 2021-09-05
-description = "[WIP] My attempt at solving a real world problem in a game creation school !"
+description = "[🚧 WIP] My attempt at solving a real world problem in a game creation school !"
 [extra]
 topic = "Evolutionnary algorithm"
 kind = "Useful"
@@ -36,7 +36,9 @@ In this setting, there is an equal number of "proposants" (in this case men) and
 It's also worth noting that there are often multiples stable solutions and that the Gale-Shapley algorithm yields the best solution for the **proposing** group, so in the marriage example the men have it best. 
 Both stability and truthfulness are highly desirable properties for our usecase of assigning students to projects, but with great guarantees come great restrictions ...
 
-First, the stability breaks if we allow "same-sex marriage" (if the group of proposants is the same as the group of acceptants) because of [love triangles](https://en.wikipedia.org/wiki/Stable_roommates_problem#Solution). This is an interesting observation but it doesn't affect our use case, because students and project seats are 2 separate groups, so it's fine. The real bummer is the second restriction: if either group has no preferences the process is no longer truthful. You can see why this is the case in the marriage problem: if the women had no preferences for men then they would just stick with the first that proposed (no reason to swap) and men's wishlists would become strategic. This really hurts our plan, because the video game pitches have no preference for who makes them, we just need enough developpers to make a prototype out of the pitches. One way to get the truthfulness back would be to create random preferences for each game pitch towards the students but that would be unfair and we don't want that either.
+First, the stability breaks if we allow "same-sex marriage" (if the group of proposants is the same as the group of acceptants) because of [love triangles](https://en.wikipedia.org/wiki/Stable_roommates_problem#Solution). This is an interesting observation but it doesn't affect our use case, because students and project seats are 2 separate groups, so it's fine. 
+
+The real bummer is the second restriction: if either group has no preferences the process is no longer truthful. You can see why this is the case in the marriage problem: if the women had no preferences for men then they would just stick with the first that proposed (no reason to swap) and men's wishlists would become strategic. This really hurts our plan, because the video game pitches have no preference for who makes them, we just need enough developpers to make a prototype out of the pitches. One way to get the truthfulness back would be to create random preferences for each game pitch towards the students but that would be unfair and we don't want that either.
 
 For this reason, I chose not to continue with the Gale-Shapley algorithm, even though it seemed to fit our needs at first. Maths are cruel.
 

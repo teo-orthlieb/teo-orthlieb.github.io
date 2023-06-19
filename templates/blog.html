@@ -12,9 +12,11 @@
       <div class="head">
         <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
         {% if page.extra.url %}
-          <img src="external.svg" alt="external link icon" width="24px"></img>
+          <img src="external.svg" alt="external link icon" title="external link" width="24px"></img>
         {% endif %}
-        <small class="kind optional">{{ page.extra.kind }}</small>
+        <div title="" class="kind optional">
+          <small>{{ page.extra.kind }}</small>
+        </div>
       </div>
       <p>{{ page.description }}</p>
       <div class="foot">
@@ -24,5 +26,6 @@
     </div>
     {% endfor %}
   </div>
+  <script type="module" src="blog.js"></script>
 </div>
 {% endblock content %}
