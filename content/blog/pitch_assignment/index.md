@@ -20,8 +20,8 @@ Understanding this, I took the challenge to make a software that would solve thi
 
 ## The stable marriage problem
 So we want to assign students to projects based on their preferences and such that the game ideas are sufficiently staffed to be made into a prototype.
-If we take a look at the existing problems related to what we're doing we find that this kind of pairing problem has been heavily studied already! As an introduction to the field, we find the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) (sorry for the heteronormativiy):
-> Given `n` men and `n` women, where each person has ranked all members of the opposite sex in order of preference, marry the men and women together such that no 2 person prefer each other to their partner.
+If we take a look at the existing problems related to what we're doing we find that this kind of pairing problem has been heavily studied already! As an introduction to the field, we find the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) (sorry for the heteronormativity):
+> Given `n` men and `n` women, where each person has ranked all members of the opposite sex in order of preference, marry the men and women together such that no 2 person prefer each other to their partner (the marriages are stable).
 
 And associated to this problem, we are handed down the simple yet remarkably effective Gale-Shapley algorithm, that goes like this:
 
@@ -43,5 +43,48 @@ The real bummer is the second restriction: if either group has no preferences th
 For this reason and other concerns with flexibility, I chose not to continue with the Gale-Shapley algorithm even though it seemed to fit our needs at first. Maths are cruel.
 
 ## The bacteria
-### WIP
-Come back later :D
+You might've guessed it with the topic of this article, the approach I turned to is evolutionnary algorithms. If you're unfamiliar, here's a very rough breakdown:
+
+> 1. define a cost (or "fitness") function that quantifies how bad (or how good) a solution is
+> 2. generate random solutions, evaluate them with the function
+> 3. select the best solutions and tweak them to generate the next generation
+> 4. rince and repeat
+
+This approach has the advantage of being very flexible because we can easily change the results by changing the cost function, but its incremental nature causes it to easily get stuck in local minimas. 
+
+Let's explain step by step how I applied this framework to our initial problem.
+
+### Inputs and Output
+The inputs of our problem are the following:
+- The students, divided in 6 specialties: game designers, programmers, artists, sound designers, UI/UX designers, project managers
+- A set of video game ideas (pitches) and their associated workloads. Some prototypes may require more artists and some may require more programmers for example.
+- The wishes of the students for what game idea they want to work on. It is a ranked list in the form of (pitch, role), some students might be candidate for multiple roles, for example a programmer with artistic talent could ask to work as an artist on a specific game.
+
+The output that we need to produce is a repartition of every students on a selection of pitches such that:
+1. every student is assigned to a (pitch, role) that was present in their wishlist (multi-tasking is allowed)
+2. the pitches that end up being selected must have enough staffing so that they can be turned into prototypes
+3. the wishes of the students must be respected as much as possible
+
+Not all students will be able to have their first wish, and it's also possible that some projects end up slightly under/over staffed depending on the number of students.
+
+In the evolutionnary framework we're building, any repartition of students that follows criteria 1. is called a "solution", and the cost function will reflect criteria 2. and 3.  
+
+### The cost function
+After a lot of tweaking, the cost function I ended up with is the following:  
+Given a solution `s`, `cost(s) = α*p(s) + (1-α)*r(s)`, with:
+- `p(s)` quantifies how much the preferences of the students are fulfilled by the solution `s`.  
+  `p(s)` is computed by summing over the (normalized) ranks of all the wishes fulfilled by the solution, squared. The lowest cost is achieved if the solution grants the first wish of every student. The squaring is a common trick to bias the solution towards equality: the cost will be lower if everyone is a little unhappy than if a few are very unhappy. 
+- `r(s)` quantifies how much the solution `s` respects the pitches requirements. Which includes:
+  - deviation of the solution from the workload required by each pitch  
+    (for example the solution will be penalized if there's not enough programmer on one pitch)
+  - the cost of an author not having their role on their pitch.
+  - the cost of students multi-tasking (working multiple roles or multiple pitches), which needs to be avoided if possible
+
+The cost function is parametrized by α in [0, 1], which I call "flexibility",  
+a greater α will give less importance to the requirements, 
+and more importance to the preferences of the students.
+
+There is also quite a few other parameters that help tweaking the results: penalty for multi-task, penalty for author not being on their pitches, etc. This is the strength of the evolutionnary approach, it is really easy to tweak the cost function to get what we want!
+
+### Evolution
+Now that we have properly defined the "solutions" and the cost function, we're ready to tackle the evolutionnary algorithm itself.
