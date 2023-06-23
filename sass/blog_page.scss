@@ -6,7 +6,7 @@
     height: 100%;
 
     .side-menu {
-        width: 18%;
+        width: 25rem;
         margin-right: 6rem;
         background-color: color-mix(in srgb, var(--main) 20%, var(--bg));
         height: 100vh;
@@ -28,11 +28,20 @@
         }
 
         .links {
-            padding: 1rem;
-            margin: 1rem -2rem 1rem 1rem;
-            border-radius: 100px 1000px 1000px 100px;
-            background-color: color-mix(in srgb, var(--main) 40%, var(--accent2));
+            margin: 2rem 0;
+            
+            .repository {
+                margin-right: -1rem;
+                padding: 0.5rem 0 0 0.5rem;
+                border-radius: 100px 1000px 1000px 100px;
+                background-color: color-mix(in srgb, var(--main) 40%, var(--accent2));
+
+                a {
+                    vertical-align: super;
+                }
+            }
         }
+
 
         .page-link {
             margin-left: 1rem;
@@ -61,6 +70,7 @@
 		max-width: 60rem;
         line-height: 1.7;
         font-size: larger;
+        padding: 0 1rem;
 
         p {
             text-align: justify;
@@ -127,6 +137,10 @@
         code {
             background: color-mix(in srgb, var(--main) 15%, var(--bg));
             padding: 0 5px;
+        }
+
+        small {
+            color: color-mix(in srgb, var(--text) 70%, var(--bg))
         }
     }
 

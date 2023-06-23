@@ -11,7 +11,10 @@
     {% endif %}
     <div class="links">
       {% if page.extra.repository %}
-        <a class="repository" href="{{ page.extra.repository }}">Link to the Repository</a>    
+        <div class="repository">
+          <img src="{{ get_url(path='github_icon.png') }}" alt="github icon" width="28" id="github_logo">
+          <a href="{{ page.extra.repository }}">Link to the Repository</a>  
+        </div>
       {% endif %}
     </div>
     <a href="{{ page.permalink | safe }}" class="page-link">{{ page.title }}</a>
