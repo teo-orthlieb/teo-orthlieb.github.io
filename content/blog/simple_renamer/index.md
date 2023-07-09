@@ -8,7 +8,7 @@ kind = "Useful"
 repository = "https://github.com/Inspirateur/SimpleRenamer"
 +++
 
-Often in my day to day life I am faced with a list of (legally obtained) files that look like this:
+Often in my day to day life I am faced with a list of (totally legal) files that look like this:
 
 > [VOSTFR].Some.Random.Serie.s1e1.(MULTi).1080p.x264.mkv  
 [VOSTFR].Some.Random.Serie.s1e2.(MULTi).1080p.x264.mkv  
@@ -52,7 +52,7 @@ I used Python for that, and made a basic UI with Tkinter to display the template
 
 ![1st simple renamer mock up](simple_renamer_1.png)  
 <small>I had no screenshot of this version so I had to draw it, sorry 😅</small>  
-The variables are represented with /a/ and /b/, I chose to use slashes because it's a forbidden character in file names so there can be no confusion.
+The variables are represented with /a/ and /b/, I chose to use slashes to denote variables because it's a forbidden character in file names so there can be no confusion.
 The user can then edit the template name, and every file is renamed following the new template, replacing the variables with their original value.
 
 This worked pretty well, I made a cheesy little showcase [here](https://www.youtube.com/watch?v=ADsyiEJWdpU), made an .exe with [PyInstaller](https://pyinstaller.org/en/stable/usage.html) and posted it to reddit, satisfied.
@@ -60,3 +60,36 @@ This worked pretty well, I made a cheesy little showcase [here](https://www.yout
 But of course that wasn't the end of it 🙃. The assumption that all file name variables are numbers broke a use case that I kept running into: it doesn't work when episode titles are in the file names. Additionnaly, a redditor suggested that the program let us edit a real title instead of a template and I liked the idea so a year later I started working on a second version!
 
 ## The second version
+So in this version, we want the program to be able to recognize title variables such as:
+
+> [VOSTFR] Some Random Serie - S1E01 - The Beginning (MULTi) 1080p x264.mkv  
+[VOSTFR] Some Random Serie - S1E02 - Trouble starts (MULTi) 1080p x264.mkv  
+[VOSTFR] Some Random Serie - S1E03 - New Player (MULTi) 1080p x264.mkv  
+...
+
+But on the other hand, we don't want our program to associate unrelated files together just because they have words in common:  
+> Big Game Hunter - meme.png  
+Game_of_life_installer.msi  
+Game of throne - a feast for crows.epub  
+...
+
+So there is a "sensitivity" balance in what gets recognized as a title variable and what is not. 
+<small> Unrelated but I had to mention it somewhere: I wrote this version in Rust because that's a cool language I'm learning </small>
+
+In order to solve this new problem, I changed the template extraction part to something like this:
+1. The user selects a file to batch rename
+2. every other file in the folder is compared to the selected file using [Difflib](https://github.com/DimaKudosh/difflib), giving me a matching score and identifying the fixed and variable parts
+3. if the matching score is greater than 0.6 - an arbitrary sensitivity threshold found empirically - the 2 files are associated
+4. shenaningans are done to unify the multiple rules extracted (this happens if 2 files have a common part by accident such as 2 "episode 01" from different seasons)
+
+Slap some unit tests for debugging after some tweaking it did work!
+
+Now the other big change left to do is allow the user to edit a real file name instead of a template with variables. The first idea that came to my mind was: 
+1. use the inferred template to extract the values of variables on the file name that the user selected
+2. in the new file name given to this file by the user, find those variable values again, to deduce the new template to apply to other file names
+
+However, in a file name such as:  
+`[1080p] Some Random Serie - S1E01 - The Beginning (MULTi.VOSTFR.x264).mkv`  
+If the folder only contains season 1 (as if often the case), the 2 variables are "1" for the episode and "The Beginning" for the title. The title is fine but the value "1" appears 3 times in the file name! So if the user renames this file to this:  
+`Some Random Serie - S1E01 - The Beginning.mkv`  
+the program has to correctly deduce that the "1" coding the episode number is the 2nd one even though it was the 3rd one in the old file name!
