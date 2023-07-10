@@ -1,7 +1,7 @@
 +++
 title = "One renaming to rule them all"
 date = 2021-11-20
-description = "[🚧 WIP] Batch renaming softwares have complicated UIs with tons of fields. Turns out you only need 1."
+description = "Batch renaming softwares have complicated UIs with tons of fields. Turns out you only need 1."
 [extra]
 topic = "Language Processing, UI"
 kind = "Useful"
@@ -89,7 +89,25 @@ Now the other big change left to do is allow the user to edit a real file name i
 2. in the new file name given to this file by the user, find those variable values again, to deduce the new template to apply to other file names
 
 However, in a file name such as:  
-`[1080p] Some Random Serie - S1E01 - The Beginning (MULTi.VOSTFR.x264).mkv`  
+`[1080p] Some Random Serie - S1E1 - The Beginning (MULTi.VOSTFR.x264).mkv`  
 If the folder only contains season 1 (as if often the case), the 2 variables are "1" for the episode and "The Beginning" for the title. The title is fine but the value "1" appears 3 times in the file name! So if the user renames this file to this:  
-`Some Random Serie - S1E01 - The Beginning.mkv`  
-the program has to correctly deduce that the "1" coding the episode number is the 2nd one even though it was the 3rd one in the old file name!
+`Some Random Serie - S1E1 - The Beginning.mkv`  
+the program has to correctly deduce that the "1" coding the episode number is the 2nd one even though it was the 3rd one in the old file name! Simply assuming that the first "1" we see is the episode number won't cut it.
+
+Thankfully, I came up with a relatively simple solution that works well in our case: taking the "fingerprints" of the variables, a count of all the characters that come before the variable value in the old file name. In the new file name we compare this print to the prints of every instance of the value ("1" in our example), and decide that the closest match is our variable.  
+<small> closest match is based on Manhattan distance here but it's an implementation detail </small>  
+
+In our example, the 1 that will be interpreted as our variable in the new file name is the correct one (the 2nd), because if you look at all the characters before it, it's the closest match for all the characters that came before our variable in the old file name, it is only missing the characters for "[1080p]" but so is the 1 from "S1", which is also missing the "E" of "E1".
+
+Of course the fingerprint match is a [heuristic](https://en.wikipedia.org/wiki/Heuristic), the user is the only one to know what they meant with their file renaming, but it does work well in practice and requires very little computation.
+
+### Demo
+So this is more or less how the second version works. Now here's the cool demo showcasing its power 😎
+
+![simple_renamer_2nd_demo](batch_renamer_demo.gif)
+
+In this new interface I added a live preview of what the new titles would become if the renaming was applied, very useful when the program does not work as intended. 😅
+
+More importantly, I'm able to do something that wasn't possible before! In this demo there's 2 episode titles, the first one is in french some of the time (idk why), and the 2nd one (in parenthesis) is always in english. Both are recognized as title variables, and in the demo I'm able to get rid of the first one successfully!
+
+I'm now really happy with the results and can switch on to maintenance mode for this project, thanks for reading :)
