@@ -1,0 +1,22 @@
+{
+    "pet-project": {
+        "emoji": "🐶",
+        "tooltip": "Projects that I don't expect to be useful"
+    },
+    "research": {
+        "emoji": "👨‍🔬",
+        "tooltip": "Research work that might have applications"
+    },
+    "reflection": {
+        "emoji": "🧠",
+        "tooltip": "Just a thought"
+    },
+    "game": {
+        "emoji": "🎮",
+        "tooltip": "Anything game related"
+    },
+    "useful": {
+        "emoji": "🛠️",
+        "tooltip": "A product that can be used"
+    }
+}
