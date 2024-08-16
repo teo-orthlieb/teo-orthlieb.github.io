@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://teo-orthlieb.github.io/sitemap.xml
