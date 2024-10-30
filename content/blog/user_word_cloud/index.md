@@ -81,7 +81,7 @@ If you try the simple solution of making a counter structure that caps at 200 wo
 Alternatively, you could try to estimate the vocabulary by storing the last 200 words used (<u>Solution **B**</u>) but it has the same issue of ignoring a lot of frequent words that came before. So we need a structure that is able to estimate decently well the most used words, without keeping track of all of them.  
 If you're familiar with this problem you might have already guessed where this is going: [Cache structures](https://en.wikipedia.org/wiki/Cache_replacement_policies). *Solution B* actually corresponds to the **L**east **R**ecently **U**sed (LRU) scheme, it's not appropriate here but there is other structures that seem interesting, notably: the Aging version of the [**N**ot **F**requently **U**sed](https://en.wikipedia.org/wiki/Page_replacement_algorithm#Not_frequently_used) (NFU) cache family. 
 Basically, the Aging cache proposes a simple modification of <u>Solution **A**</u>: 
-1. make a counter that it limited to 200 words
+1. make a counter that is limited to 200 words
 2. Each time a word is read:  
     2.1.a. If it's not in the counter and there's still room for it we add it to the counter with a count of *k*  
     2.1.b. If it's already in the counter we add *k* to it  
