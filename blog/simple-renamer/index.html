@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/style.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/header.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/main_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/projects.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_kinds.css">
+  <title>Téo Orthlieb</title>
+</head>
+
+<body class="initially_hidden">
+  <div id="header">
+    <a 
+      class="tablinks " 
+      id="me" href="https://teo-orthlieb.github.io"
+    >Téo Orthlieb</a>
+    <a 
+      class="tablinks " 
+      id="projects" href="https://teo-orthlieb.github.io/projects/"
+    >Open Source</a>
+    <a 
+      class="tablinks active" 
+      id="blog" href="https://teo-orthlieb.github.io/blog/"
+    >Blog</a>
+    <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
+  </div>
+
+  
+<div class="blog-page">
+  <div class="side-menu">
+    
+    <div class="links">
+      
+        <div class="repository">
+          <img src="https://teo-orthlieb.github.io/github_icon.png" alt="github icon" width="28" id="github_logo">
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;Inspirateur&#x2F;SimpleRenamer">Link to the Repository</a>  
+        </div>
+      
+    </div>
+    <a href="https://teo-orthlieb.github.io/blog/simple-renamer/" class="page-link">One renaming to rule them all</a>
+    
+    <ul class="toc">
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/simple-renamer/#the-first-version">The first version</a>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/simple-renamer/#the-second-version">The second version</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/simple-renamer/#demo">Demo</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  <div class="article">
+    <div class="title">
+      <span>
+        <pre>One renaming to rule them all</pre>
+      </span>
+      <small>2021-11-20</small>
+    </div>
+    <p>Often in my day to day life I am faced with a list of (totally legal) files that look like this:</p>
+<blockquote>
+<p>[VOSTFR].Some.Random.Serie.s1e1.(MULTi).1080p.x264.mkv<br />
+[VOSTFR].Some.Random.Serie.s1e2.(MULTi).1080p.x264.mkv<br />
+[VOSTFR].Some.Random.Serie.s1e3.(MULTi).1080p.x264.mkv<br />
+...</p>
+</blockquote>
+<p>Or maybe a camera that's feeling very american yields me pictures with the format month-day-year_number.jpg</p>
+<p>And whenever that happens to me I'm like <em>&quot;urgh, I wish these were named differently but I'm too lazy to <a href="https://en.wikipedia.org/wiki/Regular_expression">regex</a> it so I'll just leave them be.&quot;</em>. Or sometimes, when there's a small number of them, I'll rename them by hand and wonder <em>&quot;is there really no simple tool that can do it for me ?&quot;</em>. The pattern in the file names is usually very obvious, with some parts that are fixed and some that are variable (like episode/season numbers, or dates). </p>
+<p>I felt like it should be simple for a program to:</p>
+<blockquote>
+<ol>
+<li>automatically identify those fixed and variable parts</li>
+<li>provide you a template name in the form of:<br />
+&gt; [VOSTFR].Some.Random.Serie.s<code>/a/</code>e<code>/b/</code>.(MULTi).1080p.x264.mkv<br />
+with <code>/a/</code> and <code>/b/</code> representing variables in the file names</li>
+<li>allow you to rename it to something like:<br />
+&gt; Some Random Serie - S<code>/a/</code>E<code>/b/</code>.mkv</li>
+<li>apply this renaming on files that follows this template</li>
+</ol>
+</blockquote>
+<p>This hypothetical program would allow anyone to rename a batch of files without using regexes! So I looked for it, thinking this idea was too simple to not have already been implemented.</p>
+<p>I couldn't find it.</p>
+<p>Sure, there was some batch renaming freewares with <a href="https://www.bulkrenameutility.co.uk/assets/img-bru/mainscr.png">tons</a> of functionnalities, but as far as I could see, all of them used Regex, and where way too complex for my purposes. I had a eureka moment when I found the native Windows feature to rename multiples file, quickly followed by disappointement when I realised that it was just giving every file the same name succeeded by a (n) denoting the number. </p>
+<p>Thus, in true programmer fashion, I spent 50+ hours making this program just to save myself a dozen seconds of renaming 😎.</p>
+<h2 id="the-first-version">The first version</h2>
+<p>Going back to the rough plan I outlined, the first and biggest obstacle for our magical program is to automatically identify the fixed and variable parts given a list of file whose names follow a pattern. For the first version, I made a simplifying assumption: assume that all variables in file names are numbers. This is mostly true and covers our base case of episode/season numbers and dates. </p>
+<p>With this supposition, the code to identify the fixed and variable parts of file names is simple:</p>
+<ol>
+<li>Split all file names around numbers, so our first example becomes:<br />
+&quot;[VOSTFR].Some.Random.Serie.s&quot;, &quot;1&quot;, &quot;e&quot;, &quot;1&quot;, &quot;.(MULTi).&quot;, &quot;1080&quot;, &quot;p.x&quot;, &quot;264&quot;, &quot;.mkv&quot;<br />
+&quot;[VOSTFR].Some.Random.Serie.s&quot;, &quot;1&quot;, &quot;e&quot;, &quot;2&quot;, &quot;.(MULTi).&quot;, &quot;1080&quot;, &quot;p.x&quot;, &quot;264&quot;, &quot;.mkv&quot;<br />
+&quot;[VOSTFR].Some.Random.Serie.s&quot;, &quot;1&quot;, &quot;e&quot;, &quot;3&quot;, &quot;.(MULTi).&quot;, &quot;1080&quot;, &quot;p.x&quot;, &quot;264&quot;, &quot;.mkv&quot;<br />
+...</li>
+<li>The parts that vary are marked as variables (in our example only the episode number will be marked as variable, unless there's season 2 files in the selection)</li>
+</ol>
+<p>I used Python for that, and made a basic UI with Tkinter to display the template name that was extracted, as well as a text field to edit the template:</p>
+<p><img src="https://teo-orthlieb.github.io/blog/simple-renamer/simple_renamer_1.png" alt="1st simple renamer mock up" /><br />
+<small>I had no screenshot of this version so I had to draw it, sorry 😅</small><br />
+The variables are represented with /a/ and /b/, I chose to use slashes to denote variables because it's a forbidden character in file names so there can be no confusion.
+The user can then edit the template name, and every file is renamed following the new template, replacing the variables with their original value.</p>
+<p>This worked pretty well, I made a cheesy little showcase <a href="https://www.youtube.com/watch?v=ADsyiEJWdpU">here</a>, made an .exe with <a href="https://pyinstaller.org/en/stable/usage.html">PyInstaller</a> and posted it to reddit, satisfied.</p>
+<p>But of course that wasn't the end of it 🙃. The assumption that all file name variables are numbers broke a use case that I kept running into: it doesn't work when episode titles are in the file names. Additionnaly, a redditor suggested that the program let us edit a real title instead of a template and I liked the idea so a year later I started working on a second version!</p>
+<h2 id="the-second-version">The second version</h2>
+<p>So in this version, we want the program to be able to recognize title variables such as:</p>
+<blockquote>
+<p>[VOSTFR] Some Random Serie - S1E01 - The Beginning (MULTi) 1080p x264.mkv<br />
+[VOSTFR] Some Random Serie - S1E02 - Trouble starts (MULTi) 1080p x264.mkv<br />
+[VOSTFR] Some Random Serie - S1E03 - New Player (MULTi) 1080p x264.mkv<br />
+...</p>
+</blockquote>
+<p>But on the other hand, we don't want our program to associate unrelated files together just because they have words in common:</p>
+<blockquote>
+<p>Big Game Hunter - meme.png<br />
+Game_of_life_installer.msi<br />
+Game of throne - a feast for crows.epub<br />
+...</p>
+</blockquote>
+<p>So there is a &quot;sensitivity&quot; balance in what gets recognized as a title variable and what is not. 
+<small> Unrelated but I had to mention it somewhere: I wrote this version in Rust because that's a cool language I'm learning </small></p>
+<p>In order to solve this new problem, I changed the template extraction part to something like this:</p>
+<ol>
+<li>The user selects a file to batch rename</li>
+<li>every other file in the folder is compared to the selected file using <a href="https://github.com/DimaKudosh/difflib">Difflib</a>, giving me a matching score and identifying the fixed and variable parts</li>
+<li>if the matching score is greater than 0.6 - an arbitrary sensitivity threshold found empirically - the 2 files are associated</li>
+<li>shenaningans are done to unify the multiple rules extracted (this happens if 2 files have a common part by accident such as 2 &quot;episode 01&quot; from different seasons)</li>
+</ol>
+<p>Slap some unit tests for debugging after some tweaking it did work!</p>
+<p>Now the other big change left to do is allow the user to edit a real file name instead of a template with variables. The first idea that came to my mind was: </p>
+<ol>
+<li>use the inferred template to extract the values of variables on the file name that the user selected</li>
+<li>in the new file name given to this file by the user, find those variable values again, to deduce the new template to apply to other file names</li>
+</ol>
+<p>However, in a file name such as:<br />
+<code>[1080p] Some Random Serie - S1E1 - The Beginning (MULTi.VOSTFR.x264).mkv</code><br />
+If the folder only contains season 1 (as if often the case), the 2 variables are &quot;1&quot; for the episode and &quot;The Beginning&quot; for the title. The title is fine but the value &quot;1&quot; appears 3 times in the file name! So if the user renames this file to this:<br />
+<code>Some Random Serie - S1E1 - The Beginning.mkv</code><br />
+the program has to correctly deduce that the &quot;1&quot; coding the episode number is the 2nd one even though it was the 3rd one in the old file name! Simply assuming that the first &quot;1&quot; we see is the episode number won't cut it.</p>
+<p>Thankfully, I came up with a relatively simple solution that works well in our case: taking the &quot;fingerprints&quot; of the variables, a count of all the characters that come before the variable value in the old file name. In the new file name we compare this print to the prints of every instance of the value (&quot;1&quot; in our example), and decide that the closest match is our variable.<br />
+<small> closest match is based on Manhattan distance here but it's an implementation detail </small></p>
+<p>In our example, the 1 that will be interpreted as our variable in the new file name is the correct one (the 2nd), because if you look at all the characters before it, it's the closest match for all the characters that came before our variable in the old file name, it is only missing the characters for &quot;[1080p]&quot; but so is the 1 from &quot;S1&quot;, which is also missing the &quot;E&quot; of &quot;E1&quot;.</p>
+<p>Of course the fingerprint match is a <a href="https://en.wikipedia.org/wiki/Heuristic">heuristic</a>, the user is the only one to know what they meant with their file renaming, but it does work well in practice and requires very little computation.</p>
+<h3 id="demo">Demo</h3>
+<p>So this is more or less how the second version works. Now here's the cool demo showcasing its power 😎</p>
+<p><img src="https://teo-orthlieb.github.io/blog/simple-renamer/batch_renamer_demo.gif" alt="simple_renamer_2nd_demo" /></p>
+<p>In this new interface I added a live preview of what the new titles would become if the renaming was applied, very useful when the program does not work as intended. 😅</p>
+<p>More importantly, I'm able to do something that wasn't possible before! In this demo there's 2 episode titles, the first one is in french some of the time (idk why), and the 2nd one (in parenthesis) is always in english. Both are recognized as title variables, and in the demo I'm able to get rid of the first one successfully!</p>
+<p>I'm now really happy with the results and can switch on to maintenance mode for this project, thanks for reading :)</p>
+
+  </div>
+</div>
+
+
+  <script src="/theme_switch.js"></script>
+</body>
+
+</html>

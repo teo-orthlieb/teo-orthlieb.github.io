@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/style.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/header.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/main_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/projects.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_kinds.css">
+  <title>Téo Orthlieb</title>
+</head>
+
+<body class="initially_hidden">
+  <div id="header">
+    <a 
+      class="tablinks " 
+      id="me" href="https://teo-orthlieb.github.io"
+    >Téo Orthlieb</a>
+    <a 
+      class="tablinks " 
+      id="projects" href="https://teo-orthlieb.github.io/projects/"
+    >Open Source</a>
+    <a 
+      class="tablinks active" 
+      id="blog" href="https://teo-orthlieb.github.io/blog/"
+    >Blog</a>
+    <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
+  </div>
+
+  
+<div class="blog-page">
+  <div class="side-menu">
+    
+    <div class="links">
+      
+    </div>
+    <a href="https://teo-orthlieb.github.io/blog/eleusis/" class="page-link">The scientific research game</a>
+    
+    <ul class="toc">
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/eleusis/#rules">Rules</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/eleusis/#examples-of-god-rule">Examples of God rule</a>
+                </li>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/eleusis/#scoring-less-points-is-better-chart-with-downwards-trend">Scoring (less points is better 📉)</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/eleusis/#observations-from-playing-it">Observations from playing it</a>
+          
+        </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  <div class="article">
+    <div class="title">
+      <span>
+        <pre>The scientific research game</pre>
+      </span>
+      <small>2022-08-07</small>
+    </div>
+    <p>I have done quite a lot of problem solving, but rarely have I got the chance to do actual science. Observations, building theory, experiments, ultimately leading to understanding the unknown! (modern) Science has come a long way since its birth in the 16th century, to build further upon it now requires years of learning what is known. Which is why the few occasions I had to do proper science was not by studying reality but Man made universes, video games such as <a href="https://en.wikipedia.org/wiki/Minecraft">Minecraft</a> or <a href="https://en.wikipedia.org/wiki/Dofus">Dofus</a>, in which I uncovered advanced mechanics that were not explained by the developpers. </p>
+<p>Doing science is really exciting to me, it's a unique feeling of exploring unknown territories, every little piece of info you get feels so important! <a href="https://en.wikipedia.org/wiki/Eleusis_(card_game)">Eleusis</a> is a unique card game that's all about that. I've linked the Wikipedia page if you're curious, but I've found the original scoring rules overcomplicated so I made my own and I'm sharing it with you.</p>
+<h2 id="rules">Rules</h2>
+<ol>
+<li>One player plays <em>God</em>, the other are dealt 5 cards, 
+the game ends when a player reaches 0 cards</li>
+<li><em>God</em> thinks of a rule that define valid card plays 
+<small>(see examples)</small></li>
+<li><em>God</em> draws a card until a valid one is found, they play the card as the first card of the sequence<br />
+<small>(the other are returned to the draw)</small></li>
+<li>Taking turns in clockwise order, each player can either:
+<ol>
+<li>Attempt to play <code>n</code> cards to continue the sequence:
+<ol>
+<li>if <em>God</em> approves, the sequence stays</li>
+<li>otherwise, it is put in the column below and the player draws* <code>2n</code> cards</li>
+</ol>
+</li>
+<li>Claim that they have no valid card to play
+<ol>
+<li>if <em>God</em> approves, the player is dealt a new hand with <code>2</code> cards less</li>
+<li>otherwise, <em>God</em> plays a valid card and the player draws* <code>4</code> cards</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>At the end of their turn, the player can choose to become the <em>Prophet:</em>
+The <em>Prophet</em> stops playing cards and must do the approving/disapproving instead of god until they commit an error or the game ends.<br />
+<small>A <em>marker</em> is placed after the current last card (used for scoring)</small><br />
+→ If the <em>Prophet</em> is wrong, the marker is removed and they draw* <code>4</code> cards; 
+this player cannot become <em>Prophet</em> again in this game. </li>
+</ol>
+<p><small>* <em>If there’s no more cards to draw, directly add them as points in the scoring instead</em></small></p>
+<h3 id="examples-of-god-rule">Examples of God rule</h3>
+<p><em>“Black cards must be odd, Red cards must be even”</em></p>
+<p><em>“A new card must have either the same value or the same color as the previous one”</em></p>
+<p><em>“Black cards must be higher than the previous one, Red cards must be lower”</em></p>
+<p><em>“Cards played by players on the left side of the table are valid, the other are not”</em></p>
+<h3 id="scoring-less-points-is-better-chart-with-downwards-trend">Scoring (less points is better 📉)</h3>
+<p>→ The amount of valid cards before the <em>marker</em> is noted <code>#BC</code></p>
+<p>→ The amount of rejected cards after the <em>marker</em> is noted <code>#AD</code></p>
+<p>At the end of a game:</p>
+<ul>
+<li><em>God</em> gains <code>#BC - #AD</code></li>
+<li>The <em>Prophet</em> gains <code>min(0, #BC - #AD)</code></li>
+<li>Other players gains as much points as they have cards left</li>
+</ul>
+<h2 id="observations-from-playing-it">Observations from playing it</h2>
+<p>Eleusis mimics the scientific process so closely that playing it gives us a real insight into our own way of thinking. The first thing that was obvious to me is that God tend to overestimate the ability of the players to find its secret rule. Many times I've seen a new God make a rule that was absolutely impossible to find in practice while thinking that it was reasonable. I don't know how this bias is called, but my explanation of it is that while the amount of possible rules is enormous, when thinking of a new rule we only go through very few possibilities before selecting one. This tricks us into thinking our new rule is obvious because it took a small amount of time to come up with it, whereas from an outside perspective it's only one possibility among thousands.</p>
+<p>The second observation that I made playing Eleusis was that the &quot;researchers&quot; tend to naturally go against <a href="https://en.wikipedia.org/wiki/Occam%27s_razor">Occam's razor</a> in practice. Occam's razor is the principle that a simpler theory is better than a complex one, because the less assumptions you have to make, the less likely the theory is to be wrong. This is a respected principle in statistical modeling, if 2 different models have the same accuracy on training data (analogous to &quot;explaining the observations&quot;), then the simpler one will usually perform better on unseen data (analogous to &quot;predicting new observations&quot;). I think this tendency to build overly complex rules is a consequence of our theory building process:</p>
+<ol>
+<li>we first make a simple observation about the sequence of cards; eg: there's an alternation of red and black cards</li>
+<li>the observation seems to hold on at first but at some point an exception is encountered; eg: 2 red cards next to each other</li>
+<li>instead of looking for another pattern we continue with the one we found, feeling that it is too valuable to toss away because it worked at the beginning, and somehow twist it to make the exception &quot;valid&quot; in our theory; eg: there's an alternation of red and black only when the value is below 10</li>
+<li>repeat until the rule becomes bloated with exceptions</li>
+</ol>
+<p>In the end, it often turns out that the first track we chose was a dead-end, because there's simply so many, and that we would have been better off by exploring more tracks instead of going deeper. I'm sure this perseverance has its merits in life, some things really are complicated and full of exceptions. But it's good to be aware of it!</p>
+<p>Anyway, I really encourage you to try it yourself, there's no hard limit on the number of player (you can use additionnal decks of cards if there's to many), if anything, the table length is the real limiting factor 😆!</p>
+
+  </div>
+</div>
+
+
+  <script src="/theme_switch.js"></script>
+</body>
+
+</html>

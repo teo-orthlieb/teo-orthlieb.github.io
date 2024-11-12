@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/style.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/header.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/main_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/projects.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_kinds.css">
+  <title>Téo Orthlieb</title>
+</head>
+
+<body class="initially_hidden">
+  <div id="header">
+    <a 
+      class="tablinks " 
+      id="me" href="https://teo-orthlieb.github.io"
+    >Téo Orthlieb</a>
+    <a 
+      class="tablinks " 
+      id="projects" href="https://teo-orthlieb.github.io/projects/"
+    >Open Source</a>
+    <a 
+      class="tablinks active" 
+      id="blog" href="https://teo-orthlieb.github.io/blog/"
+    >Blog</a>
+    <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
+  </div>
+
+  
+<div class="blog-page">
+  <div class="side-menu">
+    
+    <div class="links">
+      
+        <div class="repository">
+          <img src="https://teo-orthlieb.github.io/github_icon.png" alt="github icon" width="28" id="github_logo">
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;Inspirateur&#x2F;wordy">Link to the Repository</a>  
+        </div>
+      
+    </div>
+    <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/" class="page-link">Making personalised Word Clouds</a>
+    
+    <ul class="toc">
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/#the-naive-approach">The naive approach</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/#vocabulary">Vocabulary</a>
+                </li>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/#scoring">Scoring</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/#going-more-general">Going more general</a>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/user-word-cloud/#optimization-note">Optimization note</a>
+          
+        </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  <div class="article">
+    <div class="title">
+      <span>
+        <pre>Making personalised Word Clouds</pre>
+      </span>
+      <small>2023-01-26</small>
+    </div>
+    <p>My friends and I joined Discord in 2016, mostly to play and discuss games with text and voice chats.<br />
+4 years later, in 2020, I was messing around with Discord Bots and Natural Language Processing when a simple idea occured to me: </p>
+<blockquote>
+<p>what if we had a Discord bot that would read our messages and make a word cloud for each of my friends on the server?</p>
+</blockquote>
+<p>If you're unfamiliar with word clouds, here's an example around Star Wars:<br />
+<img src="https://teo-orthlieb.github.io/blog/user-word-cloud/word_cloud_example.png" alt="Star Wars Word Cloud" /></p>
+<p>Basically it's a colorful image made up of words that are bigger the more related they are to the subject.</p>
+<p>Since we had been typing out messages on a daily basis for 4 years, I figured there was more than enough data to gather words that are typical of each of my friends, and to make Word Clouds out of it.<br />
+The main question was: how do we mathematically figure out which words are &quot;typical&quot; of someone ?<br />
+In other words, we want a scoring function <code>Sp(w)</code> that take a word <code>w</code> as parameter and outputs a score that represent how much the word is specific to the person <code>p</code> in the server.</p>
+<h2 id="the-naive-approach">The naive approach</h2>
+<p>When solving new problems, it's always good to try the simplest approach first, it might just work!</p>
+<h3 id="vocabulary">Vocabulary</h3>
+<p>In our case, the simplest approach would be to first compute what I call &quot;the vocabulary&quot;, <code>Vp</code>. Intuitively, the vocabulary is the set of words a person tends to use.<br />
+Suppose we're making the word cloud of Alice, a biology student. Since Alice occupy much of her time with biology, she will probably tend to use technical biology words more often, such as &quot;endemic&quot;, &quot;genotype&quot; etc.<br />
+Mathematically, we compute her vocabulary by counting every word Alice wrote on the Discord server, and how much she used them; so <code>Vp(w) = </code> the amount of time Alice used the word <code>w</code> </p>
+<blockquote>
+<p><strong>Note</strong>: this doesn't take into account multi-words expressions, such as &quot;Hang in there&quot;, which lose all meaning when treated as separate words. 
+We could get around it by counting every pair of words or every triplet of words - these would be called <a href="https://en.wikipedia.org/wiki/N-gram">2-grams and 3-grams</a> - but this is outside the scope of this article so we'll stick with 1-grams here :)</p>
+</blockquote>
+<h3 id="scoring">Scoring</h3>
+<p>Then the scoring would just be <code>Sp(w) = Vp(w)</code>, so the words used in the word cloud would just be Alice's most used words. Sounds good right?<br />
+... well not exactly.</p>
+<p>Implementing this, we run into a problem: the words that are the most used by Alice - and anyone else - are boring uninformative words such as &quot;the&quot;, &quot;an&quot;, &quot;is&quot;, &quot;to&quot;, etc. 
+Not at all the technical biology words that we wanted to see!</p>
+<p>In the processing of natural language, this problem isn't new. A common solution is to make what's called a &quot;<a href="https://en.wikipedia.org/wiki/Stop_word">stop word</a>&quot; list, containing all these uninformative words that we don't want to see, and simply filtering them out of our word clouds. Implementing this work decently well in practice, and in our case it does produce a good result!<br />
+But there are a few downside I'm not fond of:</p>
+<ol>
+<li>This require an exhaustive stop word list for every language that you want to support. Not easy to find!</li>
+<li>Irrelevant words are not always stop words: In a Discord server dedicated to Pokemon fans, the word &quot;Pokemon&quot; is bound to appear at the top of every vocabulary. 
+It's not a stop word, but we wouldn't want to include it in everyone's word clouds, because in this context, it's not typical of any user!</li>
+</ol>
+<p>What we need is a generalization of stop words, a way to quantify how informative a word is in a given context.</p>
+<h2 id="going-more-general">Going more general</h2>
+<p>As we just pointed out, counting how much Alice uses each word is not enough, we also need to filter out words that are common to everyone. So let's try adding the following rule to the scoring function (that decides which word go into the word cloud):</p>
+<blockquote>
+<p>The more a word is used by everyone in the Discord server, the less it is specific to Alice and therefore the less we want it to go into the word cloud.</p>
+</blockquote>
+<p>To implement this, we need to compute one more vocabulary: the global vocabulary, <code>Vg(w)</code>, that tells us how much each word as been used in total. It is also the sum of the vocabularies of every member of the Discord server, so it is quite easy to compute. Then we want to penalize words based on how common they are. There are multiples formula we can choose to do that using <code>Vg(w)</code> but the simplest is: <code>Sp(w) = Vp(w)/Vg(w)</code>, so to score a word <code>w</code> for a person <code>p</code> we divide how much <code>p</code> used <code>w</code> by how much it was used in total.</p>
+<blockquote>
+<p><strong>Note</strong>: Normalizing both vocabularies (diving by the sum) gets us values between 0 and 1, which is much nicer to work with if we want to tweak the formula using powers. For example we could want to penalize common words even more by doing <code>Sp(w) = Vp(w)/Vg(w)^2</code>, Vg squared will stay in [0;1] instead of blowing up.</p>
+</blockquote>
+<p>And this works! The common words are penalized so the word cloud is no longer filled with &quot;the&quot;, &quot;an&quot;, &quot;is&quot;, &quot;and&quot;, and contains words that are actually specific to Alice!</p>
+<p>Here's a real output of the bot for a friend on my Discord server (in french):<br />
+<img src="https://teo-orthlieb.github.io/blog/user-word-cloud/phyette_word_cloud.png" alt="real_world_wc" /><br />
+In this Word Cloud (that also contains emojis) we can see:</p>
+<ul>
+<li>Words related to &quot;l'agregation&quot; (basically a diploma for teacher of High school and above) that this friend was getting: &quot;concours&quot;, &quot;l'agreg&quot;, &quot;prof&quot;, &quot;classe&quot; etc.</li>
+<li>Words with unique spelling typical to this friend: &quot;oskour&quot;, &quot;chuila&quot;, &quot;doni&quot;, &quot;alé&quot;</li>
+<li>Words/emojis that are favored by this friend: &quot;lol&quot;, &quot;chats&quot;, &quot;désolée&quot;, &quot;mortel&quot;, &quot;btw&quot;</li>
+<li>Not many french stop words such as &quot;un&quot;, &quot;du&quot;, &quot;à&quot;, &quot;je&quot;, &quot;il&quot; etc.</li>
+</ul>
+<p>I've skipped over many details of <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization">tokenization</a>, dealing with Discord's API, and making the word cloud image itself; but the bottom line is: this scoring does work pretty well!</p>
+<h2 id="optimization-note">Optimization note</h2>
+<p>This solution works fine, and it only requires store 1 vocabulary per person, which is like 10 kB for active users.<br />
+10 kB/user would give 10 GB for 1 million users, which is very reasonable, even in RAM. However, I still decided to try and optimize it for fun, because it's an interesting problem to work on :p</p>
+<p>But since the score function requires the vocabulary of the user, how could you possibly make it work without storing all of it ?<br />
+Well, as it turns out, you don't <em>need</em> the whole vocabulary. Indeed, inspecting user vocabularies reveal that most words are only used once or twice; and since the scoring function multiplies by word count, words that are used very few time are very unlikely to make it into the word cloud. </p>
+<blockquote>
+<p>Instead of storing the whole vocabulary, we can make it work with just the top ~200 words of each user.</p>
+</blockquote>
+<p>But this is where it gets tricky.<br />
+If you try the simple solution of making a counter structure that caps at 200 words (<u>Solution <strong>A</strong></u>), you run into a problem: the structure will only hold the first 200 unique words it encounters, after which all new words will be ignored.<br />
+Alternatively, you could try to estimate the vocabulary by storing the last 200 words used (<u>Solution <strong>B</strong></u>) but it has the same issue of ignoring a lot of frequent words that came before. So we need a structure that is able to estimate decently well the most used words, without keeping track of all of them.<br />
+If you're familiar with this problem you might have already guessed where this is going: <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies">Cache structures</a>. <em>Solution B</em> actually corresponds to the <strong>L</strong>east <strong>R</strong>ecently <strong>U</strong>sed (LRU) scheme, it's not appropriate here but there is other structures that seem interesting, notably: the Aging version of the <a href="https://en.wikipedia.org/wiki/Page_replacement_algorithm#Not_frequently_used"><strong>N</strong>ot <strong>F</strong>requently <strong>U</strong>sed</a> (NFU) cache family. 
+Basically, the Aging cache proposes a simple modification of <u>Solution <strong>A</strong></u>: </p>
+<ol>
+<li>make a counter that is limited to 200 words</li>
+<li>Each time a word is read:<br />
+2.1.a. If it's not in the counter and there's still room for it we add it to the counter with a count of <em>k</em><br />
+2.1.b. If it's already in the counter we add <em>k</em> to it<br />
+2.2 every other word in the counter are decreased by a fixed amount <em>a</em> (or divided). If a word reaches 0 it is free to be replaced.</li>
+</ol>
+<p>The crucial step here is 2.2, it is where the &quot;aging&quot; takes place. Words in the counter decay over time, allowing new words to take their place if they are not refreshed often enough! The speed of aging is controlled with parameter <em>a</em>, while <em>k</em> control the lifespan of new words.<br />
+Of course this biases the estimated vocabulary towards recent words, but this is perfectly fine for my use, because I wish for the vocabularies to evolve over time as new expressions come into users vocabulary.</p>
+
+  </div>
+</div>
+
+
+  <script src="/theme_switch.js"></script>
+</body>
+
+</html>
