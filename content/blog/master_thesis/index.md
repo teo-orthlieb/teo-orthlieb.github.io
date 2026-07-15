@@ -6,5 +6,6 @@ description = "My Master's Thesis on Automatic Fact Checking using modern Langua
 kind = "Research"
 topic = "Machine Learning"
 url = "https://papyrus.bib.umontreal.ca/xmlui/handle/1866/27060"
+thumbnail = "memoire.png"
 +++
 

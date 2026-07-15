@@ -6,6 +6,7 @@ description = "Batch renaming softwares have complicated UIs with tons of fields
 topic = "Language Processing, UI"
 kind = "Useful"
 repository = "https://github.com/Inspirateur/SimpleRenamer"
+thumbnail = "batch_rename.png"
 +++
 
 Often in my day to day life I am faced with a list of (totally legal) files that look like this:

@@ -6,6 +6,7 @@ description = "My attempt at solving a real world problem in a game creation sch
 topic = "Evolutionnary algorithm"
 kind = "Useful"
 repository = "https://github.com/Inspirateur/PitchAssignment"
+thumbnail = "excel_and_dna.png"
 +++
 
 A friend of mine studying at a video game creation school once told me about the following situation:  

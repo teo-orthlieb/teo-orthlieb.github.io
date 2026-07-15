@@ -6,6 +6,8 @@
         border-radius: 5px;
         margin-bottom: 1.5rem;
         background-color: color-mix(in srgb, var(--opposite) 4%, var(--bg));
+        display: flex;
+        gap: 1rem;
 
         &:hover {
             transform: scale(1.05);
@@ -19,15 +21,25 @@
             }
         }
 
+        >img {
+            height: 10rem;
+        }
+
+        .post-body {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
         .head {
             display: flex;
-    
+
             a {
                 white-space: pre;
                 font-size: larger;
                 margin-bottom: 0;
             }
-            
+
             img {
                 margin-left: 0.5rem;
             }
@@ -44,6 +56,8 @@
 
         .foot {
             display: flex;
+            margin-top: auto;
+
             small {
                 align-self: center;
 

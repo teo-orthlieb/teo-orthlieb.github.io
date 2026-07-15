@@ -5,6 +5,7 @@ description = "Have you ever wondered what it's like to be a scientist discoveri
 [extra]
 topic = "Science"
 kind = "Game"
+thumbnail = "eleusis.jpg"
 +++
 
 I have done quite a lot of problem solving, but rarely have I got the chance to do actual science. Observations, building theory, experiments, ultimately leading to understanding the unknown! (modern) Science has come a long way since its birth in the 16th century, to build further upon it now requires years of learning what is known. Which is why the few occasions I had to do proper science was not by studying reality but Man made universes, video games such as [Minecraft](https://en.wikipedia.org/wiki/Minecraft) or [Dofus](https://en.wikipedia.org/wiki/Dofus), in which I uncovered advanced mechanics that were not explained by the developpers. 

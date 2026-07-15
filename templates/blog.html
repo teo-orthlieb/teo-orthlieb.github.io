@@ -6,22 +6,25 @@
     {{ section.title }}
   </h3>
   <div class="posts">
-    <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->  
+    <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->
     {% for page in section.pages %}
     <div class="post {{ page.extra.kind | slugify }}">
-      <div class="head">
-        <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
-        {% if page.extra.url %}
+      <img src="{{ page.permalink }}/{{ page.extra.thumbnail | default(value='') }}"></img>
+      <div class="post-body">
+        <div class="head">
+          <a href="{{ page.extra.url | default(value=page.permalink) | safe }}">{{ page.title }}</a>
+          {% if page.extra.url %}
           <img src="external.svg" alt="external link icon" title="external link" width="24px"></img>
-        {% endif %}
-        <div title="" class="kind optional">
-          <small>{{ page.extra.kind }}</small>
+          {% endif %}
+          <div title="" class="kind optional">
+            <small>{{ page.extra.kind }}</small>
+          </div>
         </div>
-      </div>
-      <p>{{ page.description }}</p>
-      <div class="foot">
-        <small>{{ page.extra.topic }}</small>
-        <small>📆 {{ page.date }}</small>
+        <p>{{ page.description }}</p>
+        <div class="foot">
+          <small>{{ page.extra.topic }}</small>
+          <small>📆 {{ page.date }}</small>
+        </div>
       </div>
     </div>
     {% endfor %}

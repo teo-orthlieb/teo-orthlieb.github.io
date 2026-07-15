@@ -6,6 +6,7 @@ description = "We all have our own way of speaking, but how can we capture this 
 topic = "Language Processing"
 kind = "Research"
 repository = "https://github.com/Inspirateur/wordy"
+thumbnail = "word_cloud_example.png"
 +++
 My friends and I joined Discord in 2016, mostly to play and discuss games with text and voice chats.  
 4 years later, in 2020, I was messing around with Discord Bots and Natural Language Processing when a simple idea occured to me: 

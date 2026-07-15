@@ -5,13 +5,19 @@ description = "A wild adventure about scripting, parsers, and me not talking to 
 [extra]
 topic = "Formal Language"
 kind = "Game"
+thumbnail = "surprised_pikachu.png"
 +++
 
 Recently I've really been into Poké-MMO style games, basically unofficial fan-made Pokémon games that allow you to play in a shared world with everyone else. 
 
 > For the uninitiated: Pokémon is a game in which you tame magical beast and make them battle each other (cruel I know). Each player has a "team" made of 6 Pokémon, analogous to a soccer team but with fire horses, metal praying mantis and water spraying ducks. There are hundreds of different Pokémon species!
 
-I've been so into it in fact, that I joined the volunteer staffing crew that runs [Pokémon Revolution Online](https://pokemonrevolution.net/en/home) as a NPC scripter!
+I've been so into it in fact, that I joined the volunteer staffing crew that runs [Pokémon Revolution Online](https://pokemonrevolution.net/en/home) (PRO) as a NPC scripter!
+
+<div style="text-align: center;">
+  <img src="pro.png" alt="PRO logo" width="200">
+  <img src="pikachu.png" alt="Pikachu" width="200">
+</div>
 
 In this game, NPC (basically game characters) can be classified in 3 categories: 
 - Lore NPC: they just tell you stuff
@@ -192,7 +198,6 @@ So the IR is basically just Python classes that represent everything that we nee
 
 Here's the IR that would represent the "have" requirement for example:
 ```python
-# Improved for the purposes of the blog (actual code is not as nice)
 @dataclass
 class HaveRequirement:
     count: str
@@ -210,7 +215,7 @@ This allows us to store every info that our formally defined syntax allows to wr
 So the parser is the part that reads the text file following our formal syntax that looks like this:  
  `have <count> (OT) ([<pokemon>, <typename> type]) ([above, under] level <levelvalue>)`
 
-Here's the most important piece of advice I have today: DO NOT write your own parser
+Little piece of advice: DO NOT write your own parser
 
 We didn't follow this advice of course, but please know that there are plenty of excellent parsers that have been written by much smarter people and all you have to do is give it your formal syntax and with a little coercing it will produce objects of your IR. Easy :)
 
@@ -221,7 +226,6 @@ The NPC script that our machine must produce is a python file. And a python file
 
 Here's an excerpt:
 ```python
-# Improved for the purposes of the blog
 def build_reward_part(self, reward, tabs):
     if reward.kind == "money":
         return (
