@@ -6,8 +6,7 @@
     height: 100%;
 
     .side-menu {
-        width: 25rem;
-        margin-right: 6rem;
+        min-width: 15rem;
         background-color: color-mix(in srgb, var(--main) 20%, var(--bg));
         height: 100vh;
         position: sticky;
