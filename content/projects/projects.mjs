@@ -15,31 +15,57 @@ function htmlToElement(html) {
 }
 
 const octokit = new Octokit();
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 load_github_repos();
 
-async function repo_card(owner, repo) {
-	let resp = await octokit.request('GET /repos/{owner}/{repo}', {
-		owner: owner,
-		repo: repo
-	});
-	let card = document.createElement("div");
-	// REPOS TITLE
-	let title = document.createElement("p");
-	let link = document.createElement("a");
-	link.setAttribute("href", resp["data"]["html_url"]);
-	link.innerText = resp["data"]["name"];
-	title.appendChild(link);
-	card.appendChild(title);
-	// REPOS DESC
-	let desc = document.createElement("small");
-	desc.innerText = resp["data"]["description"];
-	card.appendChild(desc);
-	// REPOS STATS
-	let stats = document.createElement("div");
-	stats.className = "stats"
+async function get_repo_data(owner, repo) {
+	const cache_key = `gh_repo_stats:${owner}/${repo}`;
+	const cached = JSON.parse(localStorage.getItem(cache_key) || "null");
+	if (cached && Date.now() - cached.timestamp < DAY_MS) {
+		return cached.data;
+	}
+	try {
+		let resp = await octokit.request('GET /repos/{owner}/{repo}', {
+			owner: owner,
+			repo: repo
+		});
+		localStorage.setItem(cache_key, JSON.stringify({ timestamp: Date.now(), data: resp["data"] }));
+		return resp["data"];
+	} catch (err) {
+		console.error(`Failed to fetch GitHub data for ${owner}/${repo}:`, err);
+		return null;
+	}
+}
+
+async function add_repo_stats(project) {
+	let repository = project.getAttribute("data-repository");
+	if (!repository) return;
+	let [owner, repo] = repository.split("/");
+	let data = await get_repo_data(owner, repo);
+	if (!data) return;
+	let stats = project.querySelector(".stats");
+
+	// stars
+	let starCount = data["stargazers_count"];
+	if (starCount > 0) {
+		let star = htmlToElement(starIcon);
+		let stars = document.createElement("small");
+		stars.innerText = starCount;
+		stats.appendChild(star);
+		stats.appendChild(stars)
+	}
+	// forks
+	let forkCount = data["forks"];
+	if (forkCount > 0) {
+		let fork = htmlToElement(forkIcon);
+		let forks = document.createElement("small");
+		forks.innerText = forkCount;
+		stats.appendChild(fork);
+		stats.appendChild(forks);
+	}
 	// lang
-	let language = resp["data"]["language"];
+	let language = data["language"];
 	if (language !== null) {
 		let lang_color = document.createElement("span");
 		lang_color.classList.add("language_color");
@@ -49,34 +75,10 @@ async function repo_card(owner, repo) {
 		stats.appendChild(lang_color);
 		stats.appendChild(lang);
 	}
-	// stars
-	let starCount = resp["data"]["stargazers_count"];
-	if (starCount > 0) {
-		let star = htmlToElement(starIcon);
-		let stars = document.createElement("small");
-		stars.innerText = starCount;
-		stats.appendChild(star);
-		stats.appendChild(stars)
-	}
-	// forks
-	let forkCount = resp["data"]["forks"];
-	if (forkCount > 0) {
-		let fork = htmlToElement(forkIcon);
-		let forks = document.createElement("small");
-		forks.innerText = forkCount;
-		stats.appendChild(fork);
-		stats.appendChild(forks);
-	}
-
-	card.appendChild(stats);
-	return card;
 }
 
 async function load_github_repos() {
-	for (const project of window.document.querySelectorAll(".projects > a")) {
-		let splitted_url = project.getAttribute("href").split("/");
-		let owner = splitted_url.at(-2);
-		let repo = splitted_url.at(-1);
-		project.parentNode.replaceChild(await repo_card(owner, repo), project);	
+	for (const project of window.document.querySelectorAll(".projects > .project")) {
+		await add_repo_stats(project);
 	}
 }

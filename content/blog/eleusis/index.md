@@ -3,8 +3,8 @@ title = "The scientific research game"
 date = 2022-08-07
 description = "Have you ever wondered what it's like to be a scientist discovering a deep secret of the Universe ? Find out with this card game."
 [extra]
-topic = "Science"
-kind = "Game"
+topic = "Game, Science"
+kind = "🎮 Game"
 thumbnail = "eleusis.jpg"
 +++
 
@@ -16,15 +16,16 @@ Doing science is really exciting to me, it's a unique feeling of exploring unkno
 
 1. One player plays *God*, the other are dealt 5 cards, 
 the game ends when a player reaches 0 cards
-2. *God* thinks of a rule that define valid card plays 
-<small>(see examples)</small>
+2. *God* thinks of a rule such as *"Black cards must be odd, Red cards must be even"*  
+<small>(more examples below)</small>
 3. *God* draws a card until a valid one is found, they play the card as the first card of the sequence  
 <small>(the other are returned to the draw)</small>
 4. Taking turns in clockwise order, each player can either:
-    1. Attempt to play `n` cards to continue the sequence:
+    - Attempt to play `n` cards to continue the sequence
         1. if *God* approves, the sequence stays
-        2. otherwise, it is put in the column below and the player draws* `2n` cards
-    2. Claim that they have no valid card to play
+        2. otherwise, the cards are put in the "sideline" below the valid sequence,  
+        and the player draws* `2×n` cards
+    - Claim that they have no valid card to play
         1. if *God* approves, the player is dealt a new hand with `2` cards less
         2. otherwise, *God* plays a valid card and the player draws* `4` cards
 5. At the end of their turn, the player can choose to become the *Prophet:*
@@ -37,7 +38,7 @@ this player cannot become *Prophet* again in this game.
 
 ### Examples of God rule
 
-*“Black cards must be odd, Red cards must be even”*
+*“The sequence must follow the cycle: heart, spade, diamonds, club”*
 
 *“A new card must have either the same value or the same color as the previous one”*
 

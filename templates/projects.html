@@ -2,56 +2,22 @@
 
 {% block content %}
 <div id="tab_projects" class="tabcontent">
-  <h3>🗂️ My Projects</h3>
-  <div>
-    <h4>🛠️ Utilities</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/SimpleRenamer">SimpleRenamer</a>
-      <a href="https://github.com/Inspirateur/PitchAssignment">PitchAssignment</a>
-      <a href="https://github.com/Inspirateur/Download-Protected-PDF">Download Protected PDF</a>
-    </div>
-
-    <h4>🕹️ Game stuff</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/riverbed">Riverbed</a>
-      <a href="https://github.com/Inspirateur/LeReTourDeHanoi">LeReTourDeHanoi</a>
-      <a href="https://github.com/Inspirateur/Undoing">Undoing</a>
-      <a href="https://github.com/Inspirateur/TerrainGen">TerrainGen</a>
-      <a href="https://github.com/Inspirateur/JulietteSortDeSaChambre">Juliette Sort De Sa Chambre</a>
-      <a href="https://github.com/Inspirateur/WonderJam-H2018">Neon Jam</a>
-      <a href="https://github.com/Inspirateur/PixelChallenge2018">Neon Storm</a>
-    </div>
-
-    <h4>🌐 Web Pages</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/what-next-front">What's Next</a>
-      <a href="https://github.com/Inspirateur/GeoSketch">GeoSketch</a>
-      <a href="https://github.com/Inspirateur/DnD-Hit-count">How long to kill?</a>
-      <a href="https://github.com/Inspirateur/L-System">L-System</a>
-    </div>
-    
-    <h4>🖥️ Machine Learning</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/KG_Datasets">KG_Datasets</a>
-      <a href="https://github.com/Inspirateur/FakeNewsClassifiers">FakeNewsClassifiers</a>
-      <a href="https://github.com/Inspirateur/Fast-BM25">Fast-BM25</a>
-    </div>
-    
-    <h4>🤖 Discord Bots</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/Discord-Bets">Discord Bets</a>
-      <a href="https://github.com/Inspirateur/DiscordWordCloud">Discord Word Cloud</a>
-      <a href="https://github.com/Inspirateur/rotatron">Rotatron</a>
-    </div>
-
-    <h4>🧊 Minecraft Plugins</h4>
-    <div class="projects">
-      <a href="https://github.com/Inspirateur/Landlord">Landlord</a>
-      <a href="https://github.com/Inspirateur/MCHunter">Speedrun Hunt</a>
-      <a href="https://github.com/Inspirateur/MC-New-World-PvP">New World PvP</a>
-      <a href="https://github.com/Inspirateur/MCQOL">QOL</a>
+  <h3 class="title">🗂️ {{ section.title }}</h3>
+  {% for page in section.pages %}
+  <div class="project" data-repository="{{ page.extra.repository }}">
+    {% if page.extra.thumbnail %}
+    <img src="{{ page.permalink }}{{ page.extra.thumbnail }}" alt="">
+    {% endif %}
+    <div class="project-body">
+      <p>
+        <a href="{{ page.extra.url | default(value='https://github.com/' ~ page.extra.repository) | safe }}">{{
+          page.title }}</a>
+      </p>
+      <small>{{ page.description }}</small>
+      <div class="stats"></div>
     </div>
   </div>
-	<script type="module" src="projects.mjs" defer></script>
+  {% endfor %}
+  <script type="module" src="projects.mjs" defer></script>
 </div>
 {% endblock content %}

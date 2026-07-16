@@ -12,7 +12,7 @@
         &:hover {
             transform: scale(1.05);
             position: relative;
-            box-shadow: 5px 5px 0 black;
+            box-shadow: 5px 5px 0 var(--accent);
 
             .head {
                 img {
@@ -23,6 +23,8 @@
 
         >img {
             height: 10rem;
+            width: 12rem;
+            object-fit: cover;
         }
 
         .post-body {

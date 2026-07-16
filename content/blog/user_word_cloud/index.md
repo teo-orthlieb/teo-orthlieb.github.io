@@ -3,8 +3,8 @@ title = "Making personalised Word Clouds"
 date = 2023-01-26
 description = "We all have our own way of speaking, but how can we capture this mathematically?"
 [extra]
-topic = "Language Processing"
-kind = "Research"
+topic = "Bot, Language Processing"
+kind = "🛠️ Product"
 repository = "https://github.com/Inspirateur/wordy"
 thumbnail = "word_cloud_example.png"
 +++

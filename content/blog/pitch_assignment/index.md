@@ -3,8 +3,8 @@ title = "Assigning students to semester projects"
 date = 2021-09-05
 description = "My attempt at solving a real world problem in a game creation school !"
 [extra]
-topic = "Evolutionnary algorithm"
-kind = "Useful"
+topic = "Script, Evolutionnary algorithm"
+kind = "🛠️ Product"
 repository = "https://github.com/Inspirateur/PitchAssignment"
 thumbnail = "excel_and_dna.png"
 +++
