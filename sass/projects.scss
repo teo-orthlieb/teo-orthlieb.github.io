@@ -9,12 +9,15 @@
         gap: 1rem;
 
         img {
-            width: 25rem;
-            height: 15rem;
+            width: 22rem;
+            height: 14rem;
             object-fit: cover;
         }
 
         .project-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
 
             a {
                 font-size: larger;
@@ -39,6 +42,11 @@
             display: flex;
             flex-direction: row;
             margin-top: auto;
+            gap: 0.5rem;
+
+            :last-child {
+                margin-left: 1rem;
+            }
 
             svg {
                 fill: color-mix(in srgb, var(--main) 10%, var(--text));

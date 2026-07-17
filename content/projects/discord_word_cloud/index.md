@@ -1,9 +1,9 @@
 +++
 title = "Discord Word Cloud"
-description = "A discord bot that generates word clouds for discord users"
-weight = 8
+weight = 5
 
 [extra]
 repository = "Inspirateur/DiscordWordCloud"
 thumbnail = "wordcloud.png"
 +++
+A discord bot that generates word clouds for discord users

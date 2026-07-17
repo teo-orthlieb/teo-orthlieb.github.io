@@ -1,9 +1,9 @@
 +++
 title = "GeoSketch"
-description = "A spirograph thingy"
-weight = 5
+weight = 8
 
 [extra]
 repository = "Inspirateur/GeoSketch"
 thumbnail = "geosketch.png"
 +++
+A spirograph thingy

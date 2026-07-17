@@ -1,9 +1,9 @@
 +++
 title = "SimpleRenamer"
-description = "A simple and smart bulk file renamer"
-weight = 1
+weight = 2
 
 [extra]
 repository = "Inspirateur/SimpleRenamer"
 thumbnail = "simple_renamer.png"
 +++
+A simple and smart bulk file renamer

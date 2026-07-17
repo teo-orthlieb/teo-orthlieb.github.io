@@ -34,8 +34,36 @@ async function get_repo_data(owner, repo) {
 		return resp["data"];
 	} catch (err) {
 		console.error(`Failed to fetch GitHub data for ${owner}/${repo}:`, err);
+		// If even if the request fails we cache an empty result to avoid repeated failed requests
+		localStorage.setItem(cache_key, JSON.stringify({ timestamp: Date.now(), data: [] }));
 		return null;
 	}
+}
+
+function add_repo_stars(span, starCount) {
+	let star = htmlToElement(starIcon);
+	let stars = document.createElement("small");
+	stars.innerText = starCount;
+	stars.prepend(star);
+	span.appendChild(stars);
+}
+
+function add_repo_forks(span, forkCount) {
+	let fork = htmlToElement(forkIcon);
+	let forks = document.createElement("small");
+	forks.innerText = forkCount;
+	forks.prepend(fork);
+	span.appendChild(forks);
+}
+
+function add_repo_lang(span, language) {
+	let lang_color = document.createElement("span");
+	lang_color.classList.add("language_color");
+	lang_color.style.backgroundColor = colors[language];
+	let lang = document.createElement("small");
+	lang.innerText = language;
+	lang.prepend(lang_color);
+	span.appendChild(lang);
 }
 
 async function add_repo_stats(project) {
@@ -47,38 +75,22 @@ async function add_repo_stats(project) {
 	let stats = project.querySelector(".stats");
 
 	// stars
-	let starCount = data["stargazers_count"];
-	if (starCount > 0) {
-		let star = htmlToElement(starIcon);
-		let stars = document.createElement("small");
-		stars.innerText = starCount;
-		stats.appendChild(star);
-		stats.appendChild(stars)
-	}
+	let starCount = data["stargazers_count"] || 0;
+	add_repo_stars(stats, starCount);
+
 	// forks
-	let forkCount = data["forks"];
-	if (forkCount > 0) {
-		let fork = htmlToElement(forkIcon);
-		let forks = document.createElement("small");
-		forks.innerText = forkCount;
-		stats.appendChild(fork);
-		stats.appendChild(forks);
-	}
+	let forkCount = data["forks"] || 0;
+	add_repo_forks(stats, forkCount);
+
 	// lang
 	let language = data["language"];
 	if (language !== null) {
-		let lang_color = document.createElement("span");
-		lang_color.classList.add("language_color");
-		lang_color.style.backgroundColor = colors[language];
-		let lang = document.createElement("small");
-		lang.innerText = language;
-		stats.appendChild(lang_color);
-		stats.appendChild(lang);
+		add_repo_lang(stats, language);
 	}
 }
 
 async function load_github_repos() {
-	for (const project of window.document.querySelectorAll(".projects > .project")) {
+	for (const project of window.document.querySelectorAll("#tab_projects .project")) {
 		await add_repo_stats(project);
 	}
 }

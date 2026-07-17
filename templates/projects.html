@@ -13,7 +13,7 @@
         <a href="{{ page.extra.url | default(value='https://github.com/' ~ page.extra.repository) | safe }}">{{
           page.title }}</a>
       </p>
-      <small>{{ page.description }}</small>
+      <small>{{ page.content | safe }}</small>
       <div class="stats"></div>
     </div>
   </div>
