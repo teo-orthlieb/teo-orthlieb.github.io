@@ -6,4 +6,6 @@ weight = 3
 repository = "Inspirateur/riverbed"
 thumbnail = "riverbed.png"
 +++
-A Minecraft-inspired Bevy game
+Making my very own Minecraft clone™ with [Bevy](https://bevyengine.org/), an **ECS** **Rust** game engine. 
+
+Solved lots of hard performance problems and learned about data-oriented programming!

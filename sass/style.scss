@@ -4,22 +4,23 @@
 	display: none;
 }
 
-:root, html[data-theme='dark'] {
+:root,
+html[data-theme='dark'] {
 	--main: #000;
-    --opposite: #fff;
-    --text: #c4c4c4;
-    --bg: #1c1c21;
-    --accent: #e8d897;
-    --accent2: #976997;
+	--opposite: #fff;
+	--text: #c4c4c4;
+	--bg: #1c1c21;
+	--accent: #e8d897;
+	--accent2: #976997;
 }
 
 html[data-theme='light'] {
-    --main: #cccccc;
-    --opposite: #707070;
-    --text: #222;
-    --bg: #eee;
-    --accent: #d6a70d;
-    --accent2: #a37da3;  
+	--main: #cccccc;
+	--opposite: #707070;
+	--text: #222;
+	--bg: #eee;
+	--accent: #d6a70d;
+	--accent2: #a37da3;
 }
 
 html {
@@ -111,10 +112,14 @@ img {
 }
 
 pre {
-	white-space: pre-wrap;       /* Since CSS 2.1 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
+	white-space: pre-wrap;
+	/* Since CSS 2.1 */
+	white-space: -moz-pre-wrap;
+	/* Mozilla, since 1999 */
+	white-space: -pre-wrap;
+	/* Opera 4-6 */
+	white-space: -o-pre-wrap;
+	/* Opera 7 */
 }
 
 @media only screen and (max-width: 900px) {
@@ -128,5 +133,10 @@ pre {
 
 	h3 {
 		margin-top: 0;
+		font-size: 1.5rem;
+	}
+
+	h4 {
+		font-size: 1.2rem;
 	}
 }
