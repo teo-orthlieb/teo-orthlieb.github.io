@@ -1,7 +1,7 @@
 +++
-title = "Tinder for Netflix"
+title = "🚧 Tinder for Netflix"
 date = 2024-12-05
-description = "Making the simplest series recommendation app."
+description = "[WIP] Applying Tinder UX to a series recommendation app."
 [extra]
 topic = "App, recommendations"
 kind = "🛠️ Product"
