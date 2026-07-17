@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/style.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/header.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/main_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/projects.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_kinds.css">
+  <title>Téo Orthlieb</title>
+</head>
+
+<body class="initially_hidden">
+  <div id="header">
+    <a class="tablinks " id="me" href="https://teo-orthlieb.github.io">Téo
+      Orthlieb</a>
+    <a class="tablinks active" id="blog"
+      href="https://teo-orthlieb.github.io/blog/">Blog</a>
+    <a class="tablinks " id="projects"
+      href="https://teo-orthlieb.github.io/projects/">Projects</a>
+    <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
+  </div>
+
+  
+<div class="blog-page">
+  <div class="side-menu">
+    
+    <div class="links">
+      
+    </div>
+    <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/" class="page-link">Generating NPC code in a Pokemon game</a>
+    
+    <ul class="toc">
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#the-script-syntax">The script syntax</a>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#the-user-syntax">The user syntax</a>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#the-hard-part">The hard part</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#1-define-plain-english">1. Define &quot;plain english&quot;</a>
+                </li>
+              
+                <li>
+                  <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#2-open-vs-code">2. Open VS Code</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="https://teo-orthlieb.github.io/blog/pokemon-npc-maker/#pokemon-politics">Pokémon Politics</a>
+          
+        </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  <div class="article">
+    <div class="title">
+      <span>
+        <pre>Generating NPC code in a Pokemon game</pre>
+      </span>
+      <small>2019-04-13</small>
+    </div>
+    <p>Recently I've really been into Poké-MMO style games, basically unofficial fan-made Pokémon games that allow you to play in a shared world with everyone else.</p>
+<blockquote>
+<p>For the uninitiated: Pokémon is a game in which you tame magical beast and make them battle each other (cruel I know). Each player has a "team" made of 6 Pokémon, analogous to a soccer team but with fire horses, metal praying mantis and water spraying ducks. There are hundreds of different Pokémon species!</p>
+</blockquote>
+<p>I've been so into it in fact, that I joined the volunteer staffing crew that runs <a rel="external" href="https://pokemonrevolution.net/en/home">Pokémon Revolution Online</a> (PRO) as a NPC scripter!</p>
+<div style="text-align: center;">
+  <img src="pro.png" alt="PRO logo" width="200">
+  <img src="pikachu.png" alt="Pikachu" width="200">
+</div>
+<p>In this game, NPC (basically game characters) can be classified in 3 categories:</p>
+<ul>
+<li>Lore NPC: they just tell you stuff</li>
+<li>Quest NPC: key elements of a quest</li>
+<li><strong>Boss NPC</strong>: they challenge you to a Pokémon battle</li>
+</ul>
+<p>Boss NPC are designed as a challenge to strong players and can impose weird requirement like "player must use a team made of Water-type Pokémon only" to make the battle harder.</p>
+<p>Aside from their Pokémon team, Boss NPC have 3 parts that we must script:</p>
+<ul>
+<li>a set of requirement that must be met to allow the battle</li>
+<li>a set of randomized rewards if the player wins</li>
+<li>a set of dialogue</li>
+</ul>
+<p>Oh and there's one more thing to know about them: Boss NPC are <em>very</em> popular. Most of the community requests to NPC scripters were about them.</p>
+<p>So a boss NPC script is</p>
+<ol>
+<li>Something that is done on a <strong>computer</strong></li>
+<li>with a <strong>regular structure</strong></li>
+<li>of which production is in <strong>high demand</strong></li>
+</ol>
+<p>... You might've guessed it already, after scripting a whole 2 Boss NPC, I decided to automate it.</p>
+<h2 id="the-script-syntax">The script syntax</h2>
+<p>Since we're about to automate <em>scripting</em>, let's take a look at an example script that our program should generate:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="python"><span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);">!python</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Generated by PRO BossMaker Discord bot - please report any problems to Inspi#8989</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">from</span><span> random</span><span style="color: light-dark(#D73A49, #F97583);"> import</span><span> randrange</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> cooldown time to prevent the player from farming the NPC</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">if</span><span> user</span><span>.</span><span>expire</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">AQUABOSS_CD</span><span style="color: light-dark(#D73A49, #F97583);"> is</span><span style="color: light-dark(#D73A49, #F97583);"> not</span><span style="color: light-dark(#005CC5, #79B8FF);"> None</span><span>:</span></span>
+<span class="giallo-l"><span>    hours</span><span>,</span><span> remainder</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span style="color: light-dark(#005CC5, #79B8FF);"> divmod</span><span>(</span><span>user</span><span>.</span><span>expire</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">AQUABOSS_CD</span><span>.</span><span>total_seconds</span><span>(</span><span>)</span><span>,</span><span style="color: light-dark(#005CC5, #79B8FF);"> 3600</span><span>)</span></span>
+<span class="giallo-l"><span>    mins</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> remainder</span><span style="color: light-dark(#D73A49, #F97583);">/</span><span style="color: light-dark(#005CC5, #79B8FF);">60</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#D73A49, #F97583);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">I</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;m tired, come back in [FF3300]</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>hours</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);"> hours, </span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>mins</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);"> minutes[-].</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    return</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Condition 1: Team must be Water-type only</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">if</span><span style="color: light-dark(#D73A49, #F97583);"> not</span><span style="color: light-dark(#005CC5, #79B8FF);"> all</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Water</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#D73A49, #F97583);"> in</span><span> poke</span><span>.</span><span>types</span><span style="color: light-dark(#D73A49, #F97583);"> for</span><span> poke</span><span style="color: light-dark(#D73A49, #F97583);"> in</span><span> user</span><span>.</span><span>team</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">You need a team of only Water-type Pokémon to challenge me!</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    return</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> Ask if the player wants to battle</span></span>
+<span class="giallo-l"><span>choice</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> user</span><span>.</span><span>select</span><span>(</span><span style="color: light-dark(#D73A49, #F97583);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">So, you think you can defeat me, [3399FF]</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>user</span><span>.</span><span>username</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);">[-]?</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span> [</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Let&#39;s go</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>,</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Uh, no</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">if</span><span> choice</span><span>[</span><span style="color: light-dark(#005CC5, #79B8FF);">0</span><span>]</span><span style="color: light-dark(#D73A49, #F97583);"> ==</span><span style="color: light-dark(#005CC5, #79B8FF);"> 1</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">    #</span><span style="color: light-dark(#6A737D, #6A737D);"> the player declines the battle</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Fine, come back when you&#39;re ready.</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    return</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> the player agreed to battle</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Prepare yourself!</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span>pause</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>outcome</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> user</span><span>.</span><span>battle</span><span>(</span><span>npc</span><span>,</span><span style="color: light-dark(#E36209, #FFAB70);"> noexp</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#005CC5, #79B8FF);">True</span><span>,</span><span style="color: light-dark(#E36209, #FFAB70);"> no_teleport</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#005CC5, #79B8FF);">True</span><span>)</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span>pokes</span><span>.</span><span>heal</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span>pause</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">if</span><span> outcome</span><span style="color: light-dark(#D73A49, #F97583);"> ==</span><span style="color: light-dark(#005CC5, #79B8FF);"> 0</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">    #</span><span style="color: light-dark(#6A737D, #6A737D);"> the player lost</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">AQUABOSS_CD</span><span>.</span><span>set</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>,</span><span style="color: light-dark(#E36209, #FFAB70);"> hours</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#005CC5, #79B8FF);">2</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Not quite there yet, try again later.</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    return</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> the player won</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">Impressive! You truly are a skilled trainer.</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> set win CD</span></span>
+<span class="giallo-l"><span>user</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">AQUABOSS_CD</span><span>.</span><span>set</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>,</span><span style="color: light-dark(#E36209, #FFAB70);"> days</span><span style="color: light-dark(#D73A49, #F97583);">=</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">#</span><span style="color: light-dark(#6A737D, #6A737D);"> REWARDS </span></span>
+<span class="giallo-l"><span>reward</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> randrange</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>,</span><span style="color: light-dark(#005CC5, #79B8FF);">100</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">if</span><span> reward</span><span style="color: light-dark(#D73A49, #F97583);"> &lt;=</span><span style="color: light-dark(#005CC5, #79B8FF);"> 66</span><span>:</span><span style="color: light-dark(#6A737D, #6A737D);"> #</span><span style="color: light-dark(#6A737D, #6A737D);"> 66% chance to get Pokédollars</span></span>
+<span class="giallo-l"><span>    money</span><span style="color: light-dark(#D73A49, #F97583);"> =</span><span> randrange</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">100</span><span>,</span><span style="color: light-dark(#005CC5, #79B8FF);"> 500</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>money</span><span style="color: light-dark(#D73A49, #F97583);"> +=</span><span> money</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>play_sound</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#D73A49, #F97583);">f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">You got [FFCC00]</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>money</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);"> pokedollars[-]!</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>pause</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">elif</span><span> reward</span><span style="color: light-dark(#D73A49, #F97583);"> &lt;=</span><span style="color: light-dark(#005CC5, #79B8FF);"> 100</span><span>:</span><span style="color: light-dark(#6A737D, #6A737D);"> #</span><span style="color: light-dark(#6A737D, #6A737D);"> 33% chance to get items instead</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>items</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">hyper ball</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span style="color: light-dark(#D73A49, #F97583);"> +=</span><span style="color: light-dark(#005CC5, #79B8FF);"> 10</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>play_sound</span><span>(</span><span style="color: light-dark(#005CC5, #79B8FF);">1</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>say</span><span>(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">You got [00AA00]10 Hyper Ball[-]!</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>    user</span><span>.</span><span>pause</span><span>(</span><span>)</span></span></code></pre>
+<p>The script is pretty straightforward to write, but generating it is another story.</p>
+<p>Right away we can identify the tricky parts:</p>
+<ul>
+<li>The NPC requirement in this example is "have a team made entirely of Water type Pokémon", but there are a LOT of different requirements that we could write!</li>
+<li>We need a system for structuring random rewards</li>
+<li>Each requirement will need an associated dialogue line in case the player doesn't meet it</li>
+</ul>
+<blockquote>
+<p>You may notice that the NPC Pokémon team is nowhere to be found in the script. That's because it's specified elsewhere, we won't look into that in this post :)</p>
+</blockquote>
+<h2 id="the-user-syntax">The user syntax</h2>
+<p>Now that we've seen what the output looks like, it's time to think about how we want the input to look like.</p>
+<p>To make our life easy, the input should be a text file with an intuitive syntax, it should be accessible to someone with 0 programming experience.</p>
+<p>This text file should have 3 parts: requirements, rewards and dialogue. Here's what they could look like for our "Aqua Boss" NPC:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="plain"><span class="giallo-l"><span>conditions:</span></span>
+<span class="giallo-l"><span>have only water type</span></span></code></pre>
+<p>This part is easy to understand, we could write as many requirement as we like to allow the battle, one per line.</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="plain"><span class="giallo-l"><span>rewards:</span></span>
+<span class="giallo-l"><span>money 100 to 500 2</span></span>
+<span class="giallo-l"><span>10 Hyper Ball 1</span></span></code></pre>
+<p>For the reward section the idea is to list all the possible rewards with a number attached at the end (here it's "2" and "1"). This number would define the odds of getting said reward, relative to the others. So here the player is 2 times more likely to get Pokédollars (in-game money) than 10 Hyper balls, resulting in 66% odds for the Pokédollars and 33% for the 10 Hyper balls.</p>
+<p>This is more convenient than working with percentages% because we don't need to check that it adds up to 100%! We can just continue adding rewards to the pool without ever bothering to re-normalize the other %.</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="plain"><span class="giallo-l"><span>dialogues:</span></span>
+<span class="giallo-l"><span>meet: So, you think you can defeat me, %name%?</span></span>
+<span class="giallo-l"><span>yes: Let&#39;s go</span></span>
+<span class="giallo-l"><span>no: Uh, no</span></span>
+<span class="giallo-l"><span>battle: Prepare yourself!</span></span>
+<span class="giallo-l"><span>decline: Fine, come back when you&#39;re ready.</span></span>
+<span class="giallo-l"><span>win: Impressive! You truly are a skilled trainer.</span></span>
+<span class="giallo-l"><span>loose: Not quite there yet, try again later.</span></span>
+<span class="giallo-l"><span>on cd: I&#39;m tired, come back in %cd%.</span></span>
+<span class="giallo-l"><span>condition 1: You need a team of only Water-type Pokémon to challenge me!</span></span></code></pre>
+<p>The dialogue specification is also easy to understand, predefined actions are associated with a dialogue line. We do need however to make some variables available such as %name% for the player name and %cd% for the cool-down time.</p>
+<h2 id="the-hard-part">The hard part</h2>
+<p>So we put a simple text file in the machine, almost in plain english, and we get a functional script in return, that we can just put in the game and it works ?</p>
+<p>Sounds like magic.</p>
+<p>And indeed, for me, it kinda is! What we're doing here is similar (though much much simpler) to what a compiler is doing when it reads human code and transforms it into computer instructions, and I've never done anything of the like before.</p>
+<p>Since it was my first time writing a <a rel="external" href="https://en.wikipedia.org/wiki/Parsing">Parser</a>, I got the help of a good friend of mine <a rel="external" href="https://github.com/kokounet">Chris Janaqi</a> which I'm very grateful for.</p>
+<h3 id="1-define-plain-english">1. Define "plain english"</h3>
+<p>Of course, our User script is not exactly written in plain english. It has a specific syntax that has to be respected for the machine to understand it. This syntax needs to be formally defined (boring I know).</p>
+<p>Here's what the syntax for the "have" requirement looks like for example:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="plain"><span class="giallo-l"><span>have &lt;count&gt; (OT) ([&lt;pokemon&gt;, &lt;typename&gt; type]) ([above, under] level &lt;levelvalue&gt;)</span></span></code></pre>
+<blockquote>
+<p>For Pokémon nerds: "OT" means "Original Trainer", meaning the Pokémon needs to be yours :p</p>
+</blockquote>
+<p>If you've ever used a command line terminal, you probably understand this syntax specification!</p>
+<p>The first word is "have" so this is the "have" requirement.</p>
+<ul>
+<li><code>&lt;angle brackets&gt;</code> refer to a variable quantity or text that you can write</li>
+<li><code>(parentheses)</code> refer to optional content that you can add to the command</li>
+<li><code>[square brackets]</code> is a list of comma-separated options that you can write</li>
+</ul>
+<p>Here's a few example requirements that this syntax allows you to write:</p>
+<ul>
+<li><code>have 1 pikachu above level 50</code><br />
+→ <em>Pokémons have a "strength" level from 0 to 100,<br />
+this requires the player to have a Pikachu that is above level 50</em></li>
+<li><code>have no fire type</code><br />
+→ <em>your team needs to have no fire type Pokémon</em></li>
+<li><code>have all OT</code><br />
+→ <em>your team needs to only have Pokémon that you caught yourself</em></li>
+</ul>
+<p>And that's it! For the "have" syntax at least. Every other line in the text file follows a syntax that we formally define.</p>
+<h3 id="2-open-vs-code">2. Open VS Code</h3>
+<p>Now that we've done ALL of the work defined above, it's finally time to write our magic machine that will read the almost-plain-english text file and output a working NPC script!</p>
+<blockquote>
+<p>Btw our "magic machine" is written in Python. And the NPC script it produces? Also Python.<br />
+So it's python code that produces python code, scary!</p>
+</blockquote>
+<p>This machine has 3 parts:</p>
+<ul>
+<li>The <strong><a rel="external" href="https://en.wikipedia.org/wiki/Intermediate_representation">Intermediate Representation</a> (IR)</strong> - the objects that will hold all the data that define our NPC</li>
+<li>The <strong><a rel="external" href="https://en.wikipedia.org/wiki/Parsing">Parser</a></strong> - code that will read the text according to our formally defined syntax, and produce IR objects</li>
+<li>The <strong>Generator</strong> - code that will generate our final NPC script using the IR objects that were produced by the Parser</li>
+</ul>
+<p>These parts are actually the standard for most Parser-generator projects :)</p>
+<p>The strict separation between input and output by the IR allows us to make modifications to the user facing syntax or the NPC script syntax without affecting the rest of the project.</p>
+<h4 id="the-intermediate-representation">The Intermediate Representation</h4>
+<p>So the IR is basically just Python classes that represent everything that we need in order to generate the NPC script.</p>
+<p>Here's the IR that would represent the "have" requirement for example:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="python"><span class="giallo-l"><span style="color: light-dark(#6F42C1, #B392F0);">@</span><span style="color: light-dark(#6F42C1, #B392F0);">dataclass</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">class</span><span style="color: light-dark(#6F42C1, #B392F0);"> HaveRequirement</span><span>:</span></span>
+<span class="giallo-l"><span>    count</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> str</span></span>
+<span class="giallo-l"><span>    ot</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> bool</span></span>
+<span class="giallo-l"><span>    pokemon</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> str</span></span>
+<span class="giallo-l"><span>    pokemon_type</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> str</span></span>
+<span class="giallo-l"><span>    min_level</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> int</span></span>
+<span class="giallo-l"><span>    max_level</span><span>:</span><span style="color: light-dark(#005CC5, #79B8FF);"> int</span></span></code></pre>
+<p>This allows us to store every info that our formally defined syntax allows to write.</p>
+<p><em>Importantly: IR is just data, don't put any behavior in there!</em></p>
+<h4 id="the-parser">The parser</h4>
+<p>So the parser is the part that reads the text file following our formal syntax that looks like this:<br />
+<code>have &lt;count&gt; (OT) ([&lt;pokemon&gt;, &lt;typename&gt; type]) ([above, under] level &lt;levelvalue&gt;)</code></p>
+<p>Little piece of advice: DO NOT write your own parser</p>
+<p>We didn't follow this advice of course, but please know that there are plenty of excellent parsers that have been written by much smarter people and all you have to do is give it your formal syntax and with a little coercing it will produce objects of your IR. Easy :)</p>
+<p><em>If you're curious about how they work there's plenty of other resources that you can read, but be warned, it gets deep!</em></p>
+<h4 id="the-generator">The generator</h4>
+<p>The NPC script that our machine must produce is a python file. And a python file is basically a text file. So our generator is actually a mountain of (organized) if statements that produce strings :)</p>
+<p>Here's an excerpt:</p>
+<pre class="giallo" style="color-scheme: light dark; color: light-dark(#24292E, #E1E4E8); background-color: light-dark(#FFFFFF, #24292E);"><code data-lang="python"><span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">def</span><span style="color: light-dark(#6F42C1, #B392F0);"> build_reward_part</span><span>(</span><span>self</span><span>,</span><span> reward</span><span>,</span><span> tabs</span><span>)</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    if</span><span> reward</span><span>.</span><span>kind</span><span style="color: light-dark(#D73A49, #F97583);"> ==</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">money</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        return</span><span> (</span></span>
+<span class="giallo-l"><span>            tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#D73A49, #F97583);"> f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">money = randrange(</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>reward</span><span>.</span><span>data</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">min</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>]</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);">, </span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>reward</span><span>.</span><span>data</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">max</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span>]</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);">)</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.money += money</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#D73A49, #F97583);"> f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span style="color: light-dark(#005CC5, #79B8FF);">self</span><span>.</span><span>get_sound</span><span>(</span><span>Sounds</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">ITEM_REWARD</span><span>)</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.say(f&quot;You got [FFCC00]</span><span style="color: light-dark(#005CC5, #79B8FF);">{money}</span><span style="color: light-dark(#032F62, #9ECBFF);"> pokedollars[-]!&quot;)</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.pause()</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span>        )</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    elif</span><span> reward</span><span>.</span><span>kind</span><span style="color: light-dark(#D73A49, #F97583);"> ==</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">item</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">        return</span><span> (</span></span>
+<span class="giallo-l"><span>            tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#D73A49, #F97583);"> f</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.items[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>reward</span><span>.</span><span>data</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">item</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;] += </span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>reward</span><span>.</span><span>data</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">amount</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#D73A49, #F97583);"> f</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span style="color: light-dark(#005CC5, #79B8FF);">self</span><span>.</span><span>get_sound</span><span>(</span><span>Sounds</span><span>.</span><span style="color: light-dark(#005CC5, #79B8FF);">ITEM_REWARD</span><span>)</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#D73A49, #F97583);"> f</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.say(</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;You got [00AA00]</span><span style="color: light-dark(#005CC5, #79B8FF);">{</span><span>reward</span><span>.</span><span>data</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">amount</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#005CC5, #79B8FF);"> {</span><span>reward</span><span>[</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">item</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>]</span><span>.</span><span>title</span><span>(</span><span>)</span><span style="color: light-dark(#005CC5, #79B8FF);">}</span><span style="color: light-dark(#032F62, #9ECBFF);">[-]!</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;)</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&#39;</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">            +</span><span> tabs</span><span style="color: light-dark(#D73A49, #F97583);"> +</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">user.pause()</span><span style="color: light-dark(#005CC5, #79B8FF);">\n</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span></span>
+<span class="giallo-l"><span>        )</span></span>
+<span class="giallo-l"><span style="color: light-dark(#D73A49, #F97583);">    elif</span><span> reward</span><span>.</span><span>kind</span><span style="color: light-dark(#D73A49, #F97583);"> ==</span><span style="color: light-dark(#032F62, #9ECBFF);"> &quot;</span><span style="color: light-dark(#032F62, #9ECBFF);">pokemon</span><span style="color: light-dark(#032F62, #9ECBFF);">&quot;</span><span>:</span></span>
+<span class="giallo-l"><span style="color: light-dark(#6A737D, #6A737D);">        #</span><span style="color: light-dark(#6A737D, #6A737D);"> you get the idea</span></span>
+<span class="giallo-l"><span style="color: light-dark(#005CC5, #79B8FF);">        ...</span></span></code></pre>
+<p>The indentation management (through the parameter "tabs") makes the whole thing quite unreadable honestly, I'm sure there's a cleaner way to write this... oh well ¯\<em>(ツ)</em>/¯</p>
+<h2 id="pokemon-politics">Pokémon Politics</h2>
+<p>After all our hard work we finally had it. A machine that can turn a simple text file - that someone with 0 programming experience could write - into a functionnal Boss NPC Script that can be put into the game.</p>
+<p>Ah but there something we didn't talk about: who was I making this machine for ?</p>
+<p>The volunteer staff crew maintaining this fan-made Pokémon game, is made of NPC scripters like me, moderators, admins, and more importantly the <strong>Content Team</strong>. The Content team decides what to put in the game, they design seasonal events, quests, etc. Every new content must have their approval.</p>
+<p>My Boss NPC making machine could be useful to other scripters of course, but my hope was that it could be used directly by the Content Team to alleviate some of the work given to NPC scripters.</p>
+<p>So I proudly release it, packaging it in a discord bot that you can just send the text file to and get the script back, and the reaction was 🥁 <em>drum rolls</em> 🥁 ... bad?</p>
+<p>Yep, that's right, I forgot to talk to the users before excitedly making the product. NPC Scripters didn't see the interest in learning my custom syntax since they already knew how to script, and it got worse: an admin quickly told me to disallow the Content Team from using it, because <em>"it would put too much power in their hands"</em>, in other words <strong>Politics</strong>.</p>
+<p>Damn.</p>
+<p>Well it was still useful because you know people could design their Boss NPC, submit the text file, the bot could validate it, and then this text file could be sent to a scripter which could use the bot to get the NPC script.</p>
+<p>So today we learnt how to make a parser-generator I guess, but the real takeaway here is:<br />
+<strong>&gt; make sure the users actually want your product before making it!</strong></p>
+
+  </div>
+</div>
+
+
+  <script src="/theme_switch.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/style.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/header.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/main_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/projects.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_page.css">
+  <link rel="stylesheet" href="https://teo-orthlieb.github.io/blog_kinds.css">
+  <title>Téo Orthlieb</title>
+</head>
+
+<body class="initially_hidden">
+  <div id="header">
+    <a class="tablinks " id="me" href="https://teo-orthlieb.github.io">Téo
+      Orthlieb</a>
+    <a class="tablinks " id="blog"
+      href="https://teo-orthlieb.github.io/blog/">Blog</a>
+    <a class="tablinks active" id="projects"
+      href="https://teo-orthlieb.github.io/projects/">Projects</a>
+    <input type="image" id="theme_toggle" src="/moon_icon.png" width="32" onclick="on_theme_switch()"></input>
+  </div>
+
+  
+<div id="tab_projects" class="tabcontent">
+  <div>
+    <h3>A selection of my projects</h3>
+    <span>Click on the titles to visit the project pages.</span>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;what-next-front">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;whats-next&#x2F;whats_next.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/what-next-front">What&#x27;s Next</a>
+      </h4>
+      <small><p>A web app for getting recommendations of series/movies/books with a Tinder-like interface.</p>
+<p>The user swipes on a series, the app learn their preferences and presents a better one.</p>
+<p>Back-end in <strong>Rust</strong> with <a rel="external" href="https://rocket.rs/">Rocket</a>. Front-end uses <a rel="external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components">Web Components</a>.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;SimpleRenamer">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;simple-renamer&#x2F;simple_renamer.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/SimpleRenamer">SimpleRenamer</a>
+      </h4>
+      <small><p><em>“Rename one file, it does the rest”</em></p>
+<p>A batch renaming tool in <strong>Rust</strong> that extrapolates the renaming to be applied on multiple files from 1 example, using regex inference.</p>
+<p>Interface made with <a rel="external" href="https://github.com/emilk/egui">egui</a>.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;riverbed">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;riverbed&#x2F;riverbed.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/riverbed">Riverbed</a>
+      </h4>
+      <small><p>Making my very own Minecraft clone™ with <a rel="external" href="https://bevyengine.org/">Bevy</a>, an <strong>ECS</strong> <strong>Rust</strong> game engine.</p>
+<p>Solved lots of hard performance problems and learned about data-oriented programming!</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;PitchAssignment">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;pitch-assignment&#x2F;excel_and_dna.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/PitchAssignment">PitchAssignment</a>
+      </h4>
+      <small><p>Evolutionnary algorithm in <strong>Python</strong> to assign students to group projects according to their preferences.</p>
+<p>The algorithm evolves its solution to best fit a set of constraints.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;DiscordWordCloud">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;discord-word-cloud&#x2F;wordcloud.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/DiscordWordCloud">Discord Word Cloud</a>
+      </h4>
+      <small><p>A discord bot that generates a personnalised word cloud for each user.</p>
+<p>The bot using a vocabulary contrasting technique to find words that are specific of each users + an aging Cache to efficiently store vocabulary.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;Fast-BM25">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;fast-bm25&#x2F;bm25.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://github.com/Inspirateur/Fast-BM25">Fast-BM25</a>
+      </h4>
+      <small><p>A fast implementation of the classic document ranking "<a rel="external" href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a>" function.</p>
+<p>My implementation saves time by cutting off the least informatives words (most common overall) from indexing.</p>
+<p>A parameter α controlls the trade-off between precision and speed.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;DnD-Hit-count">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;dnd-hit-count&#x2F;dnd_hit_count.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://inspirateur.github.io/DnD-Hit-count/">How long to kill?</a>
+      </h4>
+      <small><p>In the role-playing fantasy game Dungeon&amp;Dragons, players roll dice to battle monsters.</p>
+<p>A reddit user asked “How many dice roll would it take to defeat a monster with X Hit Points” ?</p>
+<p>This webpage provides the answer using <a rel="external" href="https://en.wikipedia.org/wiki/Convolution_of_probability_distributions">convolution of distributions</a>.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <div class="project" data-repository="Inspirateur&#x2F;GeoSketch">
+    
+    <img src="https:&#x2F;&#x2F;teo-orthlieb.github.io&#x2F;projects&#x2F;geo-sketch&#x2F;geosketch.png" alt="">
+    
+    <div class="project-body">
+      <h4>
+        <a href="https://inspirateur.github.io/GeoSketch/">GeoSketch</a>
+      </h4>
+      <small><p>A parametrable 3 arms spirograph that draws satisfying lines.</p>
+<p>What is the formula behind pretty patterns ?</p>
+<p>My answer is 3 numbers that have common multiples + a slight offset.</p>
+</small>
+      <div class="stats"></div>
+    </div>
+  </div>
+  
+  <script type="module" src="projects.mjs" defer></script>
+</div>
+
+
+  <script src="/theme_switch.js"></script>
+</body>
+
+</html>
