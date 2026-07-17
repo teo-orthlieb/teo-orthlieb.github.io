@@ -13,7 +13,7 @@
     {% endif %}
     <div class="project-body">
       <h4>
-        <a href="{{ page.extra.url | default(value='https://github.com/' ~ page.extra.repository) | safe }}">{{
+        <a href="{{ page.extra.page | default(value='https://github.com/' ~ page.extra.repository) | safe }}">{{
           page.title }}</a>
       </h4>
       <small>{{ page.content | safe }}</small>

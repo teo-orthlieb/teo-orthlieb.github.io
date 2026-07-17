@@ -3,6 +3,7 @@ title = "How long to kill?"
 weight = 7
 
 [extra]
+page = "https://inspirateur.github.io/DnD-Hit-count/"
 repository = "Inspirateur/DnD-Hit-count"
 thumbnail = "dnd_hit_count.png"
 +++

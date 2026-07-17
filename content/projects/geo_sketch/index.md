@@ -3,6 +3,7 @@ title = "GeoSketch"
 weight = 8
 
 [extra]
+page = "https://inspirateur.github.io/GeoSketch/"
 repository = "Inspirateur/GeoSketch"
 thumbnail = "geosketch.png"
 +++
